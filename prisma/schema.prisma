@@ -1,0 +1,213 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Plan {
+  FREE
+  PRO
+}
+
+enum AppointmentStatus {
+  CONFIRMED
+  CANCELLED_BY_CUSTOMER
+  CANCELLED_BY_PROVIDER
+  COMPLETED
+  NO_SHOW
+}
+
+enum AppointmentSource {
+  ONLINE
+  MANUAL
+}
+
+enum NotificationKind {
+  CUSTOMER_CONFIRMATION
+  PROVIDER_NEW_BOOKING
+  REMINDER
+  CANCELLATION
+  QUOTA_ALERT
+  SUBSCRIPTION_EXPIRING
+}
+
+enum NotificationChannel {
+  SMS
+  WHATSAPP
+}
+
+enum NotificationStatus {
+  PENDING
+  SENT
+  FAILED
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  EXPIRED
+  CANCELLED
+}
+
+enum PaymentMethod {
+  MTN_MOMO
+  ORANGE_MONEY
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+}
+
+model Provider {
+  id                 String   @id @default(uuid()) @db.Uuid
+  slug               String   @unique
+  businessName       String   @map("business_name")
+  ownerName          String   @map("owner_name")
+  phone              String   @unique
+  email              String?
+  passwordHash       String   @map("password_hash")
+  timezone           String   @default("Africa/Douala")
+  plan               Plan     @default(FREE)
+  minNoticeMinutes   Int      @default(60) @map("min_notice_minutes")
+  maxAdvanceDays     Int      @default(60) @map("max_advance_days")
+  cancelLimitMinutes Int      @default(120) @map("cancel_limit_minutes")
+  createdAt          DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  services      Service[]
+  openingHours  OpeningHour[]
+  closures      Closure[]
+  customers     Customer[]
+  appointments  Appointment[]
+  notifications Notification[]
+  subscriptions Subscription[]
+
+  @@map("providers")
+}
+
+model Service {
+  id          String  @id @default(uuid()) @db.Uuid
+  providerId  String  @map("provider_id") @db.Uuid
+  name        String
+  description String?
+  durationMin Int     @map("duration_min")
+  priceFcfa   Int     @map("price_fcfa")
+  active      Boolean @default(true)
+
+  provider     Provider      @relation(fields: [providerId], references: [id])
+  appointments Appointment[]
+
+  @@index([providerId])
+  @@map("services")
+}
+
+model OpeningHour {
+  id           String @id @default(uuid()) @db.Uuid
+  providerId   String @map("provider_id") @db.Uuid
+  weekday      Int    @db.SmallInt
+  opensAtMin   Int    @map("opens_at_min")
+  closesAtMin  Int    @map("closes_at_min")
+
+  provider Provider @relation(fields: [providerId], references: [id])
+
+  @@index([providerId, weekday])
+  @@map("opening_hours")
+}
+
+model Closure {
+  id         String   @id @default(uuid()) @db.Uuid
+  providerId String   @map("provider_id") @db.Uuid
+  startsAt   DateTime @map("starts_at") @db.Timestamptz(6)
+  endsAt     DateTime @map("ends_at") @db.Timestamptz(6)
+  reason     String?
+
+  provider Provider @relation(fields: [providerId], references: [id])
+
+  @@index([providerId, startsAt])
+  @@map("closures")
+}
+
+model Customer {
+  id         String @id @default(uuid()) @db.Uuid
+  providerId String @map("provider_id") @db.Uuid
+  name       String
+  phone      String
+
+  provider     Provider      @relation(fields: [providerId], references: [id])
+  appointments Appointment[]
+
+  @@unique([providerId, phone])
+  @@map("customers")
+}
+
+model Appointment {
+  id          String            @id @default(uuid()) @db.Uuid
+  providerId  String            @map("provider_id") @db.Uuid
+  serviceId   String            @map("service_id") @db.Uuid
+  customerId  String            @map("customer_id") @db.Uuid
+  startsAt    DateTime          @map("starts_at") @db.Timestamptz(6)
+  endsAt      DateTime          @map("ends_at") @db.Timestamptz(6)
+  status      AppointmentStatus @default(CONFIRMED)
+  source      AppointmentSource @default(ONLINE)
+  cancelToken String            @unique @map("cancel_token")
+  createdAt   DateTime          @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  provider      Provider       @relation(fields: [providerId], references: [id])
+  service       Service        @relation(fields: [serviceId], references: [id])
+  customer      Customer       @relation(fields: [customerId], references: [id])
+  notifications Notification[]
+
+  @@index([providerId, startsAt])
+  @@map("appointments")
+}
+
+model Notification {
+  id            String              @id @default(uuid()) @db.Uuid
+  appointmentId String?             @map("appointment_id") @db.Uuid
+  providerId    String              @map("provider_id") @db.Uuid
+  kind          NotificationKind
+  channel       NotificationChannel
+  status        NotificationStatus  @default(PENDING)
+  scheduledAt   DateTime            @map("scheduled_at") @db.Timestamptz(6)
+  sentAt        DateTime?           @map("sent_at") @db.Timestamptz(6)
+  attempts      Int                 @default(0)
+  providerRef   String?             @map("provider_ref")
+
+  appointment Appointment? @relation(fields: [appointmentId], references: [id])
+  provider    Provider     @relation(fields: [providerId], references: [id])
+
+  @@index([status, scheduledAt])
+  @@map("notifications")
+}
+
+model Subscription {
+  id         String             @id @default(uuid()) @db.Uuid
+  providerId String             @map("provider_id") @db.Uuid
+  plan       Plan
+  startsOn   DateTime           @map("starts_on") @db.Date
+  endsOn     DateTime           @map("ends_on") @db.Date
+  status     SubscriptionStatus @default(ACTIVE)
+
+  provider Provider  @relation(fields: [providerId], references: [id])
+  payments Payment[]
+
+  @@index([providerId])
+  @@map("subscriptions")
+}
+
+model Payment {
+  id             String        @id @default(uuid()) @db.Uuid
+  subscriptionId String        @map("subscription_id") @db.Uuid
+  amountFcfa     Int           @map("amount_fcfa")
+  method         PaymentMethod
+  externalRef    String?       @unique @map("external_ref")
+  status         PaymentStatus @default(PENDING)
+  paidAt         DateTime?     @map("paid_at") @db.Timestamptz(6)
+
+  subscription Subscription @relation(fields: [subscriptionId], references: [id])
+
+  @@map("payments")
+}
