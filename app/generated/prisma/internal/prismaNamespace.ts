@@ -1188,7 +1188,8 @@ export const CustomerScalarFieldEnum = {
   id: 'id',
   providerId: 'providerId',
   name: 'name',
-  phone: 'phone'
+  phone: 'phone',
+  whatsappOptIn: 'whatsappOptIn'
 } as const
 
 export type CustomerScalarFieldEnum = (typeof CustomerScalarFieldEnum)[keyof typeof CustomerScalarFieldEnum]
@@ -1220,7 +1221,8 @@ export const NotificationScalarFieldEnum = {
   scheduledAt: 'scheduledAt',
   sentAt: 'sentAt',
   attempts: 'attempts',
-  providerRef: 'providerRef'
+  providerRef: 'providerRef',
+  lastError: 'lastError'
 } as const
 
 export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]

@@ -42,7 +42,9 @@ export const NotificationKind = {
   REMINDER: 'REMINDER',
   CANCELLATION: 'CANCELLATION',
   QUOTA_ALERT: 'QUOTA_ALERT',
-  SUBSCRIPTION_EXPIRING: 'SUBSCRIPTION_EXPIRING'
+  SUBSCRIPTION_EXPIRING: 'SUBSCRIPTION_EXPIRING',
+  REMINDER_24H: 'REMINDER_24H',
+  REMINDER_3H: 'REMINDER_3H'
 } as const
 
 export type NotificationKind = (typeof NotificationKind)[keyof typeof NotificationKind]

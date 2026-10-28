@@ -45,6 +45,7 @@ export type NotificationMinAggregateOutputType = {
   sentAt: Date | null
   attempts: number | null
   providerRef: string | null
+  lastError: string | null
 }
 
 export type NotificationMaxAggregateOutputType = {
@@ -58,6 +59,7 @@ export type NotificationMaxAggregateOutputType = {
   sentAt: Date | null
   attempts: number | null
   providerRef: string | null
+  lastError: string | null
 }
 
 export type NotificationCountAggregateOutputType = {
@@ -71,6 +73,7 @@ export type NotificationCountAggregateOutputType = {
   sentAt: number
   attempts: number
   providerRef: number
+  lastError: number
   _all: number
 }
 
@@ -94,6 +97,7 @@ export type NotificationMinAggregateInputType = {
   sentAt?: true
   attempts?: true
   providerRef?: true
+  lastError?: true
 }
 
 export type NotificationMaxAggregateInputType = {
@@ -107,6 +111,7 @@ export type NotificationMaxAggregateInputType = {
   sentAt?: true
   attempts?: true
   providerRef?: true
+  lastError?: true
 }
 
 export type NotificationCountAggregateInputType = {
@@ -120,6 +125,7 @@ export type NotificationCountAggregateInputType = {
   sentAt?: true
   attempts?: true
   providerRef?: true
+  lastError?: true
   _all?: true
 }
 
@@ -220,6 +226,7 @@ export type NotificationGroupByOutputType = {
   sentAt: Date | null
   attempts: number
   providerRef: string | null
+  lastError: string | null
   _count: NotificationCountAggregateOutputType | null
   _avg: NotificationAvgAggregateOutputType | null
   _sum: NotificationSumAggregateOutputType | null
@@ -256,6 +263,7 @@ export type NotificationWhereInput = {
   sentAt?: Prisma.DateTimeNullableFilter<"Notification"> | Date | string | null
   attempts?: Prisma.IntFilter<"Notification"> | number
   providerRef?: Prisma.StringNullableFilter<"Notification"> | string | null
+  lastError?: Prisma.StringNullableFilter<"Notification"> | string | null
   appointment?: Prisma.XOR<Prisma.AppointmentNullableScalarRelationFilter, Prisma.AppointmentWhereInput> | null
   provider?: Prisma.XOR<Prisma.ProviderScalarRelationFilter, Prisma.ProviderWhereInput>
 }
@@ -271,12 +279,14 @@ export type NotificationOrderByWithRelationInput = {
   sentAt?: Prisma.SortOrderInput | Prisma.SortOrder
   attempts?: Prisma.SortOrder
   providerRef?: Prisma.SortOrderInput | Prisma.SortOrder
+  lastError?: Prisma.SortOrderInput | Prisma.SortOrder
   appointment?: Prisma.AppointmentOrderByWithRelationInput
   provider?: Prisma.ProviderOrderByWithRelationInput
 }
 
 export type NotificationWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  appointmentId_kind?: Prisma.NotificationAppointmentIdKindCompoundUniqueInput
   AND?: Prisma.NotificationWhereInput | Prisma.NotificationWhereInput[]
   OR?: Prisma.NotificationWhereInput[]
   NOT?: Prisma.NotificationWhereInput | Prisma.NotificationWhereInput[]
@@ -289,9 +299,10 @@ export type NotificationWhereUniqueInput = Prisma.AtLeast<{
   sentAt?: Prisma.DateTimeNullableFilter<"Notification"> | Date | string | null
   attempts?: Prisma.IntFilter<"Notification"> | number
   providerRef?: Prisma.StringNullableFilter<"Notification"> | string | null
+  lastError?: Prisma.StringNullableFilter<"Notification"> | string | null
   appointment?: Prisma.XOR<Prisma.AppointmentNullableScalarRelationFilter, Prisma.AppointmentWhereInput> | null
   provider?: Prisma.XOR<Prisma.ProviderScalarRelationFilter, Prisma.ProviderWhereInput>
-}, "id">
+}, "id" | "appointmentId_kind">
 
 export type NotificationOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -304,6 +315,7 @@ export type NotificationOrderByWithAggregationInput = {
   sentAt?: Prisma.SortOrderInput | Prisma.SortOrder
   attempts?: Prisma.SortOrder
   providerRef?: Prisma.SortOrderInput | Prisma.SortOrder
+  lastError?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.NotificationCountOrderByAggregateInput
   _avg?: Prisma.NotificationAvgOrderByAggregateInput
   _max?: Prisma.NotificationMaxOrderByAggregateInput
@@ -325,6 +337,7 @@ export type NotificationScalarWhereWithAggregatesInput = {
   sentAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Notification"> | Date | string | null
   attempts?: Prisma.IntWithAggregatesFilter<"Notification"> | number
   providerRef?: Prisma.StringNullableWithAggregatesFilter<"Notification"> | string | null
+  lastError?: Prisma.StringNullableWithAggregatesFilter<"Notification"> | string | null
 }
 
 export type NotificationCreateInput = {
@@ -336,6 +349,7 @@ export type NotificationCreateInput = {
   sentAt?: Date | string | null
   attempts?: number
   providerRef?: string | null
+  lastError?: string | null
   appointment?: Prisma.AppointmentCreateNestedOneWithoutNotificationsInput
   provider: Prisma.ProviderCreateNestedOneWithoutNotificationsInput
 }
@@ -351,6 +365,7 @@ export type NotificationUncheckedCreateInput = {
   sentAt?: Date | string | null
   attempts?: number
   providerRef?: string | null
+  lastError?: string | null
 }
 
 export type NotificationUpdateInput = {
@@ -362,6 +377,7 @@ export type NotificationUpdateInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   attempts?: Prisma.IntFieldUpdateOperationsInput | number
   providerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   appointment?: Prisma.AppointmentUpdateOneWithoutNotificationsNestedInput
   provider?: Prisma.ProviderUpdateOneRequiredWithoutNotificationsNestedInput
 }
@@ -377,6 +393,7 @@ export type NotificationUncheckedUpdateInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   attempts?: Prisma.IntFieldUpdateOperationsInput | number
   providerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type NotificationCreateManyInput = {
@@ -390,6 +407,7 @@ export type NotificationCreateManyInput = {
   sentAt?: Date | string | null
   attempts?: number
   providerRef?: string | null
+  lastError?: string | null
 }
 
 export type NotificationUpdateManyMutationInput = {
@@ -401,6 +419,7 @@ export type NotificationUpdateManyMutationInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   attempts?: Prisma.IntFieldUpdateOperationsInput | number
   providerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type NotificationUncheckedUpdateManyInput = {
@@ -414,6 +433,7 @@ export type NotificationUncheckedUpdateManyInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   attempts?: Prisma.IntFieldUpdateOperationsInput | number
   providerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type NotificationListRelationFilter = {
@@ -424,6 +444,11 @@ export type NotificationListRelationFilter = {
 
 export type NotificationOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type NotificationAppointmentIdKindCompoundUniqueInput = {
+  appointmentId: string
+  kind: $Enums.NotificationKind
 }
 
 export type NotificationCountOrderByAggregateInput = {
@@ -437,6 +462,7 @@ export type NotificationCountOrderByAggregateInput = {
   sentAt?: Prisma.SortOrder
   attempts?: Prisma.SortOrder
   providerRef?: Prisma.SortOrder
+  lastError?: Prisma.SortOrder
 }
 
 export type NotificationAvgOrderByAggregateInput = {
@@ -454,6 +480,7 @@ export type NotificationMaxOrderByAggregateInput = {
   sentAt?: Prisma.SortOrder
   attempts?: Prisma.SortOrder
   providerRef?: Prisma.SortOrder
+  lastError?: Prisma.SortOrder
 }
 
 export type NotificationMinOrderByAggregateInput = {
@@ -467,6 +494,7 @@ export type NotificationMinOrderByAggregateInput = {
   sentAt?: Prisma.SortOrder
   attempts?: Prisma.SortOrder
   providerRef?: Prisma.SortOrder
+  lastError?: Prisma.SortOrder
 }
 
 export type NotificationSumOrderByAggregateInput = {
@@ -582,6 +610,7 @@ export type NotificationCreateWithoutProviderInput = {
   sentAt?: Date | string | null
   attempts?: number
   providerRef?: string | null
+  lastError?: string | null
   appointment?: Prisma.AppointmentCreateNestedOneWithoutNotificationsInput
 }
 
@@ -595,6 +624,7 @@ export type NotificationUncheckedCreateWithoutProviderInput = {
   sentAt?: Date | string | null
   attempts?: number
   providerRef?: string | null
+  lastError?: string | null
 }
 
 export type NotificationCreateOrConnectWithoutProviderInput = {
@@ -637,6 +667,7 @@ export type NotificationScalarWhereInput = {
   sentAt?: Prisma.DateTimeNullableFilter<"Notification"> | Date | string | null
   attempts?: Prisma.IntFilter<"Notification"> | number
   providerRef?: Prisma.StringNullableFilter<"Notification"> | string | null
+  lastError?: Prisma.StringNullableFilter<"Notification"> | string | null
 }
 
 export type NotificationCreateWithoutAppointmentInput = {
@@ -648,6 +679,7 @@ export type NotificationCreateWithoutAppointmentInput = {
   sentAt?: Date | string | null
   attempts?: number
   providerRef?: string | null
+  lastError?: string | null
   provider: Prisma.ProviderCreateNestedOneWithoutNotificationsInput
 }
 
@@ -661,6 +693,7 @@ export type NotificationUncheckedCreateWithoutAppointmentInput = {
   sentAt?: Date | string | null
   attempts?: number
   providerRef?: string | null
+  lastError?: string | null
 }
 
 export type NotificationCreateOrConnectWithoutAppointmentInput = {
@@ -699,6 +732,7 @@ export type NotificationCreateManyProviderInput = {
   sentAt?: Date | string | null
   attempts?: number
   providerRef?: string | null
+  lastError?: string | null
 }
 
 export type NotificationUpdateWithoutProviderInput = {
@@ -710,6 +744,7 @@ export type NotificationUpdateWithoutProviderInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   attempts?: Prisma.IntFieldUpdateOperationsInput | number
   providerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   appointment?: Prisma.AppointmentUpdateOneWithoutNotificationsNestedInput
 }
 
@@ -723,6 +758,7 @@ export type NotificationUncheckedUpdateWithoutProviderInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   attempts?: Prisma.IntFieldUpdateOperationsInput | number
   providerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type NotificationUncheckedUpdateManyWithoutProviderInput = {
@@ -735,6 +771,7 @@ export type NotificationUncheckedUpdateManyWithoutProviderInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   attempts?: Prisma.IntFieldUpdateOperationsInput | number
   providerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type NotificationCreateManyAppointmentInput = {
@@ -747,6 +784,7 @@ export type NotificationCreateManyAppointmentInput = {
   sentAt?: Date | string | null
   attempts?: number
   providerRef?: string | null
+  lastError?: string | null
 }
 
 export type NotificationUpdateWithoutAppointmentInput = {
@@ -758,6 +796,7 @@ export type NotificationUpdateWithoutAppointmentInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   attempts?: Prisma.IntFieldUpdateOperationsInput | number
   providerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   provider?: Prisma.ProviderUpdateOneRequiredWithoutNotificationsNestedInput
 }
 
@@ -771,6 +810,7 @@ export type NotificationUncheckedUpdateWithoutAppointmentInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   attempts?: Prisma.IntFieldUpdateOperationsInput | number
   providerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type NotificationUncheckedUpdateManyWithoutAppointmentInput = {
@@ -783,6 +823,7 @@ export type NotificationUncheckedUpdateManyWithoutAppointmentInput = {
   sentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   attempts?: Prisma.IntFieldUpdateOperationsInput | number
   providerRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -798,6 +839,7 @@ export type NotificationSelect<ExtArgs extends runtime.Types.Extensions.Internal
   sentAt?: boolean
   attempts?: boolean
   providerRef?: boolean
+  lastError?: boolean
   appointment?: boolean | Prisma.Notification$appointmentArgs<ExtArgs>
   provider?: boolean | Prisma.ProviderDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["notification"]>
@@ -813,6 +855,7 @@ export type NotificationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   sentAt?: boolean
   attempts?: boolean
   providerRef?: boolean
+  lastError?: boolean
   appointment?: boolean | Prisma.Notification$appointmentArgs<ExtArgs>
   provider?: boolean | Prisma.ProviderDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["notification"]>
@@ -828,6 +871,7 @@ export type NotificationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   sentAt?: boolean
   attempts?: boolean
   providerRef?: boolean
+  lastError?: boolean
   appointment?: boolean | Prisma.Notification$appointmentArgs<ExtArgs>
   provider?: boolean | Prisma.ProviderDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["notification"]>
@@ -843,9 +887,10 @@ export type NotificationSelectScalar = {
   sentAt?: boolean
   attempts?: boolean
   providerRef?: boolean
+  lastError?: boolean
 }
 
-export type NotificationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "appointmentId" | "providerId" | "kind" | "channel" | "status" | "scheduledAt" | "sentAt" | "attempts" | "providerRef", ExtArgs["result"]["notification"]>
+export type NotificationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "appointmentId" | "providerId" | "kind" | "channel" | "status" | "scheduledAt" | "sentAt" | "attempts" | "providerRef" | "lastError", ExtArgs["result"]["notification"]>
 export type NotificationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   appointment?: boolean | Prisma.Notification$appointmentArgs<ExtArgs>
   provider?: boolean | Prisma.ProviderDefaultArgs<ExtArgs>
@@ -876,6 +921,7 @@ export type $NotificationPayload<ExtArgs extends runtime.Types.Extensions.Intern
     sentAt: Date | null
     attempts: number
     providerRef: string | null
+    lastError: string | null
   }, ExtArgs["result"]["notification"]>
   composites: {}
 }
@@ -1311,6 +1357,7 @@ export interface NotificationFieldRefs {
   readonly sentAt: Prisma.FieldRef<"Notification", 'DateTime'>
   readonly attempts: Prisma.FieldRef<"Notification", 'Int'>
   readonly providerRef: Prisma.FieldRef<"Notification", 'String'>
+  readonly lastError: Prisma.FieldRef<"Notification", 'String'>
 }
     
 

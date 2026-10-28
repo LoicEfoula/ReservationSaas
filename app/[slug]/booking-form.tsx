@@ -46,6 +46,7 @@ export default function BookingForm({
   const [slot, setSlot] = useState<SlotItem | null>(null);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [whatsappOptIn, setWhatsappOptIn] = useState(false);
   const [error, setError] = useState("");
   const [done, setDone] = useState<{ startsAt: string; serviceName: string } | null>(null);
   const [loadingSlots, startLoading] = useTransition();
@@ -77,6 +78,7 @@ export default function BookingForm({
         startsAt: slot.startsAt,
         name,
         phone,
+        whatsappOptIn,
       });
       if (res.ok) {
         setDone({ startsAt: res.startsAt, serviceName: res.serviceName });
@@ -223,6 +225,18 @@ export default function BookingForm({
             required
             className="rounded border p-3"
           />
+          <label className="flex items-start gap-2 text-sm text-gray-700">
+            <input
+              type="checkbox"
+              checked={whatsappOptIn}
+              onChange={(e) => setWhatsappOptIn(e.target.checked)}
+              className="mt-1"
+            />
+            <span>
+              J'accepte de recevoir la confirmation et les rappels de ce
+              rendez-vous sur WhatsApp.
+            </span>
+          </label>
           {error && <p className="text-sm text-red-600">{error}</p>}
           <button
             disabled={booking}

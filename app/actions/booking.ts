@@ -1,9 +1,13 @@
 "use server";
 
 import { randomUUID } from "node:crypto";
+import { after } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { getAvailableSlots } from "@/lib/availability";
+import { notify } from "@/lib/notify";
+import { frDate, frTime } from "@/lib/whatsapp";
+import { cancelUrl } from "@/lib/cancel";
 
 export type SlotItem = { startsAt: string; label: string };
 export type BookingResult =
@@ -33,6 +37,7 @@ const bookingSchema = z.object({
   startsAt: z.string().min(1),
   name: z.string().trim().min(2, "Merci d'indiquer ton nom").max(80),
   phone: z.string().trim(),
+  whatsappOptIn: z.boolean().default(false),
 });
 
 // Numéros mobiles camerounais : 9 chiffres commençant par 6
@@ -48,7 +53,7 @@ export async function bookAppointment(input: unknown): Promise<BookingResult> {
   if (!parsed.success) {
     return { ok: false, error: parsed.error.issues[0].message };
   }
-  const { slug, serviceId, startsAt, name } = parsed.data;
+  const { slug, serviceId, startsAt, name, whatsappOptIn } = parsed.data;
 
   const phone = normalizePhone(parsed.data.phone);
   if (!phone) {
@@ -57,7 +62,7 @@ export async function bookAppointment(input: unknown): Promise<BookingResult> {
 
   const provider = await prisma.provider.findUnique({
     where: { slug },
-    select: { id: true },
+    select: { id: true, businessName: true, phone: true },
   });
   if (!provider) return { ok: false, error: "Salon introuvable" };
 
@@ -83,22 +88,28 @@ export async function bookAppointment(input: unknown): Promise<BookingResult> {
     };
   }
 
+  let appointmentId: string;
+  const cancelToken = randomUUID();
+  let optedIn: boolean;
   try {
     const customer = await prisma.customer.upsert({
       where: { providerId_phone: { providerId: provider.id, phone } },
-      update: { name },
-      create: { providerId: provider.id, phone, name },
+      update: { name, whatsappOptIn },
+      create: { providerId: provider.id, phone, name, whatsappOptIn },
     });
-    await prisma.appointment.create({
+    const appointment = await prisma.appointment.create({
       data: {
         providerId: provider.id,
         serviceId: service.id,
         customerId: customer.id,
         startsAt: slot.startsAt,
         endsAt: slot.endsAt,
-        cancelToken: randomUUID(),
+        cancelToken,
       },
+      select: { id: true },
     });
+    appointmentId = appointment.id;
+    optedIn = customer.whatsappOptIn;
   } catch (e) {
     console.error("Réservation échouée :", e);
     return {
@@ -107,6 +118,32 @@ export async function bookAppointment(input: unknown): Promise<BookingResult> {
       refreshSlots: true,
     };
   }
+
+  // Messages WhatsApp envoyés après la réponse : un échec ne bloque jamais la réservation.
+  after(async () => {
+    const day = frDate(slot.startsAt);
+    const time = frTime(slot.startsAt);
+    await Promise.allSettled([
+      optedIn
+        ? notify({
+            providerId: provider.id,
+            appointmentId,
+            kind: "CUSTOMER_CONFIRMATION",
+            template: "rdv_confirmation",
+            to: phone,
+            params: [name, service.name, provider.businessName, day, time, cancelUrl(cancelToken)],
+          })
+        : Promise.resolve("skipped"),
+      notify({
+        providerId: provider.id,
+        appointmentId,
+        kind: "PROVIDER_NEW_BOOKING",
+        template: "prestataire_nouveau_rdv",
+        to: provider.phone,
+        params: [name, phone, service.name, day, time],
+      }),
+    ]);
+  });
 
   return {
     ok: true,

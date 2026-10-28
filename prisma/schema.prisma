@@ -32,6 +32,8 @@ enum NotificationKind {
   CANCELLATION
   QUOTA_ALERT
   SUBSCRIPTION_EXPIRING
+  REMINDER_24H
+  REMINDER_3H
 }
 
 enum NotificationChannel {
@@ -135,6 +137,7 @@ model Customer {
   providerId String @map("provider_id") @db.Uuid
   name       String
   phone      String
+  whatsappOptIn Boolean @default(false) @map("whatsapp_opt_in")
 
   provider     Provider      @relation(fields: [providerId], references: [id])
   appointments Appointment[]
@@ -175,12 +178,14 @@ model Notification {
   sentAt        DateTime?           @map("sent_at") @db.Timestamptz(6)
   attempts      Int                 @default(0)
   providerRef   String?             @map("provider_ref")
+  lastError 	String?             @map("last_error")
 
   appointment Appointment? @relation(fields: [appointmentId], references: [id])
   provider    Provider     @relation(fields: [providerId], references: [id])
 
   @@index([status, scheduledAt])
   @@map("notifications")
+  @@unique([appointmentId, kind])
 }
 
 model Subscription {

@@ -29,6 +29,7 @@ export type CustomerMinAggregateOutputType = {
   providerId: string | null
   name: string | null
   phone: string | null
+  whatsappOptIn: boolean | null
 }
 
 export type CustomerMaxAggregateOutputType = {
@@ -36,6 +37,7 @@ export type CustomerMaxAggregateOutputType = {
   providerId: string | null
   name: string | null
   phone: string | null
+  whatsappOptIn: boolean | null
 }
 
 export type CustomerCountAggregateOutputType = {
@@ -43,6 +45,7 @@ export type CustomerCountAggregateOutputType = {
   providerId: number
   name: number
   phone: number
+  whatsappOptIn: number
   _all: number
 }
 
@@ -52,6 +55,7 @@ export type CustomerMinAggregateInputType = {
   providerId?: true
   name?: true
   phone?: true
+  whatsappOptIn?: true
 }
 
 export type CustomerMaxAggregateInputType = {
@@ -59,6 +63,7 @@ export type CustomerMaxAggregateInputType = {
   providerId?: true
   name?: true
   phone?: true
+  whatsappOptIn?: true
 }
 
 export type CustomerCountAggregateInputType = {
@@ -66,6 +71,7 @@ export type CustomerCountAggregateInputType = {
   providerId?: true
   name?: true
   phone?: true
+  whatsappOptIn?: true
   _all?: true
 }
 
@@ -146,6 +152,7 @@ export type CustomerGroupByOutputType = {
   providerId: string
   name: string
   phone: string
+  whatsappOptIn: boolean
   _count: CustomerCountAggregateOutputType | null
   _min: CustomerMinAggregateOutputType | null
   _max: CustomerMaxAggregateOutputType | null
@@ -174,6 +181,7 @@ export type CustomerWhereInput = {
   providerId?: Prisma.UuidFilter<"Customer"> | string
   name?: Prisma.StringFilter<"Customer"> | string
   phone?: Prisma.StringFilter<"Customer"> | string
+  whatsappOptIn?: Prisma.BoolFilter<"Customer"> | boolean
   provider?: Prisma.XOR<Prisma.ProviderScalarRelationFilter, Prisma.ProviderWhereInput>
   appointments?: Prisma.AppointmentListRelationFilter
 }
@@ -183,6 +191,7 @@ export type CustomerOrderByWithRelationInput = {
   providerId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   phone?: Prisma.SortOrder
+  whatsappOptIn?: Prisma.SortOrder
   provider?: Prisma.ProviderOrderByWithRelationInput
   appointments?: Prisma.AppointmentOrderByRelationAggregateInput
 }
@@ -196,6 +205,7 @@ export type CustomerWhereUniqueInput = Prisma.AtLeast<{
   providerId?: Prisma.UuidFilter<"Customer"> | string
   name?: Prisma.StringFilter<"Customer"> | string
   phone?: Prisma.StringFilter<"Customer"> | string
+  whatsappOptIn?: Prisma.BoolFilter<"Customer"> | boolean
   provider?: Prisma.XOR<Prisma.ProviderScalarRelationFilter, Prisma.ProviderWhereInput>
   appointments?: Prisma.AppointmentListRelationFilter
 }, "id" | "providerId_phone">
@@ -205,6 +215,7 @@ export type CustomerOrderByWithAggregationInput = {
   providerId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   phone?: Prisma.SortOrder
+  whatsappOptIn?: Prisma.SortOrder
   _count?: Prisma.CustomerCountOrderByAggregateInput
   _max?: Prisma.CustomerMaxOrderByAggregateInput
   _min?: Prisma.CustomerMinOrderByAggregateInput
@@ -218,12 +229,14 @@ export type CustomerScalarWhereWithAggregatesInput = {
   providerId?: Prisma.UuidWithAggregatesFilter<"Customer"> | string
   name?: Prisma.StringWithAggregatesFilter<"Customer"> | string
   phone?: Prisma.StringWithAggregatesFilter<"Customer"> | string
+  whatsappOptIn?: Prisma.BoolWithAggregatesFilter<"Customer"> | boolean
 }
 
 export type CustomerCreateInput = {
   id?: string
   name: string
   phone: string
+  whatsappOptIn?: boolean
   provider: Prisma.ProviderCreateNestedOneWithoutCustomersInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutCustomerInput
 }
@@ -233,6 +246,7 @@ export type CustomerUncheckedCreateInput = {
   providerId: string
   name: string
   phone: string
+  whatsappOptIn?: boolean
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCustomerInput
 }
 
@@ -240,6 +254,7 @@ export type CustomerUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
+  whatsappOptIn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   provider?: Prisma.ProviderUpdateOneRequiredWithoutCustomersNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutCustomerNestedInput
 }
@@ -249,6 +264,7 @@ export type CustomerUncheckedUpdateInput = {
   providerId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
+  whatsappOptIn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCustomerNestedInput
 }
 
@@ -257,12 +273,14 @@ export type CustomerCreateManyInput = {
   providerId: string
   name: string
   phone: string
+  whatsappOptIn?: boolean
 }
 
 export type CustomerUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
+  whatsappOptIn?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type CustomerUncheckedUpdateManyInput = {
@@ -270,6 +288,7 @@ export type CustomerUncheckedUpdateManyInput = {
   providerId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
+  whatsappOptIn?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type CustomerListRelationFilter = {
@@ -292,6 +311,7 @@ export type CustomerCountOrderByAggregateInput = {
   providerId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   phone?: Prisma.SortOrder
+  whatsappOptIn?: Prisma.SortOrder
 }
 
 export type CustomerMaxOrderByAggregateInput = {
@@ -299,6 +319,7 @@ export type CustomerMaxOrderByAggregateInput = {
   providerId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   phone?: Prisma.SortOrder
+  whatsappOptIn?: Prisma.SortOrder
 }
 
 export type CustomerMinOrderByAggregateInput = {
@@ -306,6 +327,7 @@ export type CustomerMinOrderByAggregateInput = {
   providerId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   phone?: Prisma.SortOrder
+  whatsappOptIn?: Prisma.SortOrder
 }
 
 export type CustomerScalarRelationFilter = {
@@ -373,6 +395,7 @@ export type CustomerCreateWithoutProviderInput = {
   id?: string
   name: string
   phone: string
+  whatsappOptIn?: boolean
   appointments?: Prisma.AppointmentCreateNestedManyWithoutCustomerInput
 }
 
@@ -380,6 +403,7 @@ export type CustomerUncheckedCreateWithoutProviderInput = {
   id?: string
   name: string
   phone: string
+  whatsappOptIn?: boolean
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutCustomerInput
 }
 
@@ -417,12 +441,14 @@ export type CustomerScalarWhereInput = {
   providerId?: Prisma.UuidFilter<"Customer"> | string
   name?: Prisma.StringFilter<"Customer"> | string
   phone?: Prisma.StringFilter<"Customer"> | string
+  whatsappOptIn?: Prisma.BoolFilter<"Customer"> | boolean
 }
 
 export type CustomerCreateWithoutAppointmentsInput = {
   id?: string
   name: string
   phone: string
+  whatsappOptIn?: boolean
   provider: Prisma.ProviderCreateNestedOneWithoutCustomersInput
 }
 
@@ -431,6 +457,7 @@ export type CustomerUncheckedCreateWithoutAppointmentsInput = {
   providerId: string
   name: string
   phone: string
+  whatsappOptIn?: boolean
 }
 
 export type CustomerCreateOrConnectWithoutAppointmentsInput = {
@@ -453,6 +480,7 @@ export type CustomerUpdateWithoutAppointmentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
+  whatsappOptIn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   provider?: Prisma.ProviderUpdateOneRequiredWithoutCustomersNestedInput
 }
 
@@ -461,18 +489,21 @@ export type CustomerUncheckedUpdateWithoutAppointmentsInput = {
   providerId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
+  whatsappOptIn?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type CustomerCreateManyProviderInput = {
   id?: string
   name: string
   phone: string
+  whatsappOptIn?: boolean
 }
 
 export type CustomerUpdateWithoutProviderInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
+  whatsappOptIn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   appointments?: Prisma.AppointmentUpdateManyWithoutCustomerNestedInput
 }
 
@@ -480,6 +511,7 @@ export type CustomerUncheckedUpdateWithoutProviderInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
+  whatsappOptIn?: Prisma.BoolFieldUpdateOperationsInput | boolean
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutCustomerNestedInput
 }
 
@@ -487,6 +519,7 @@ export type CustomerUncheckedUpdateManyWithoutProviderInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   phone?: Prisma.StringFieldUpdateOperationsInput | string
+  whatsappOptIn?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 
@@ -525,6 +558,7 @@ export type CustomerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   providerId?: boolean
   name?: boolean
   phone?: boolean
+  whatsappOptIn?: boolean
   provider?: boolean | Prisma.ProviderDefaultArgs<ExtArgs>
   appointments?: boolean | Prisma.Customer$appointmentsArgs<ExtArgs>
   _count?: boolean | Prisma.CustomerCountOutputTypeDefaultArgs<ExtArgs>
@@ -535,6 +569,7 @@ export type CustomerSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   providerId?: boolean
   name?: boolean
   phone?: boolean
+  whatsappOptIn?: boolean
   provider?: boolean | Prisma.ProviderDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["customer"]>
 
@@ -543,6 +578,7 @@ export type CustomerSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   providerId?: boolean
   name?: boolean
   phone?: boolean
+  whatsappOptIn?: boolean
   provider?: boolean | Prisma.ProviderDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["customer"]>
 
@@ -551,9 +587,10 @@ export type CustomerSelectScalar = {
   providerId?: boolean
   name?: boolean
   phone?: boolean
+  whatsappOptIn?: boolean
 }
 
-export type CustomerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "providerId" | "name" | "phone", ExtArgs["result"]["customer"]>
+export type CustomerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "providerId" | "name" | "phone" | "whatsappOptIn", ExtArgs["result"]["customer"]>
 export type CustomerInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   provider?: boolean | Prisma.ProviderDefaultArgs<ExtArgs>
   appointments?: boolean | Prisma.Customer$appointmentsArgs<ExtArgs>
@@ -577,6 +614,7 @@ export type $CustomerPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     providerId: string
     name: string
     phone: string
+    whatsappOptIn: boolean
   }, ExtArgs["result"]["customer"]>
   composites: {}
 }
@@ -1006,6 +1044,7 @@ export interface CustomerFieldRefs {
   readonly providerId: Prisma.FieldRef<"Customer", 'String'>
   readonly name: Prisma.FieldRef<"Customer", 'String'>
   readonly phone: Prisma.FieldRef<"Customer", 'String'>
+  readonly whatsappOptIn: Prisma.FieldRef<"Customer", 'Boolean'>
 }
     
 
