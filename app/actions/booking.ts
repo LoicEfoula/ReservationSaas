@@ -8,6 +8,7 @@ import { getAvailableSlots } from "@/lib/availability";
 import { notify } from "@/lib/notify";
 import { frDate, frTime } from "@/lib/whatsapp";
 import { cancelUrl } from "@/lib/cancel";
+import { getQuota } from "@/lib/quota";
 
 export type SlotItem = { startsAt: string; label: string };
 export type BookingResult =
@@ -62,7 +63,7 @@ export async function bookAppointment(input: unknown): Promise<BookingResult> {
 
   const provider = await prisma.provider.findUnique({
     where: { slug },
-    select: { id: true, businessName: true, phone: true },
+        select: { id: true, businessName: true, phone: true, plan: true },
   });
   if (!provider) return { ok: false, error: "Salon introuvable" };
 
@@ -89,6 +90,13 @@ export async function bookAppointment(input: unknown): Promise<BookingResult> {
   }
 
   let appointmentId: string;
+  const quota = await getQuota(provider.id, provider.plan, slot.startsAt);
+  if (quota.full) {
+    return {
+      ok: false,
+      error: `${provider.businessName} a atteint sa limite de rendez-vous en ligne pour ce mois. Merci de le contacter directement au ${provider.phone}.`,
+    };
+  }
   const cancelToken = randomUUID();
   let optedIn: boolean;
   try {

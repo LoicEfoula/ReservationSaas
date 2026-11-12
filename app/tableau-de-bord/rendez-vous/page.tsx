@@ -5,6 +5,7 @@ import {
   completeAppointment,
   markNoShow,
 } from "@/app/actions/appointments";
+import { monthUsage, FREE_MONTHLY_LIMIT } from "@/lib/quota";
 
 const STATUS_LABEL: Record<string, string> = {
   CONFIRMED: "Confirmé",
@@ -83,6 +84,12 @@ export default async function RendezVousPage() {
   const { providerId } = await requireSession();
   const now = new Date();
   const since = new Date(now.getTime() - 60 * 24 * 60 * 60 * 1000);
+  const provider = await prisma.provider.findUnique({
+    where: { id: providerId },
+    select: { plan: true },
+  });
+  const used = await monthUsage(providerId, now);
+  const isFree = provider?.plan !== "PRO";
 
   const all = await prisma.appointment.findMany({
     where: { providerId, startsAt: { gte: since } },
@@ -100,6 +107,15 @@ export default async function RendezVousPage() {
   return (
     <main className="mx-auto max-w-2xl p-6">
       <h1 className="text-2xl font-semibold">Rendez-vous</h1>
+      <p
+        className={`mt-2 text-sm ${
+          isFree && used >= FREE_MONTHLY_LIMIT ? "text-red-700" : "text-gray-600"
+        }`}
+      >
+        {isFree
+          ? `Plan gratuit : ${used} / ${FREE_MONTHLY_LIMIT} rendez-vous ce mois-ci`
+          : `Plan PRO : ${used} rendez-vous ce mois-ci, sans limite`}
+      </p>
 
       {toClose.length > 0 && (
         <section className="mt-6">
