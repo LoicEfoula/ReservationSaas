@@ -6,6 +6,7 @@ import {
   markNoShow,
 } from "@/app/actions/appointments";
 import { monthUsage, FREE_MONTHLY_LIMIT } from "@/lib/quota";
+import { effectivePlan } from "@/lib/subscription";
 
 const STATUS_LABEL: Record<string, string> = {
   CONFIRMED: "Confirmé",
@@ -88,9 +89,10 @@ export default async function RendezVousPage() {
     where: { id: providerId },
     select: { plan: true },
   });
-  const used = await monthUsage(providerId, now);
-  const isFree = provider?.plan !== "PRO";
 
+  const used = await monthUsage(providerId, now);
+  const isFree = (await effectivePlan(providerId, provider?.plan ?? "FREE")) !== "PRO";
+  
   const all = await prisma.appointment.findMany({
     where: { providerId, startsAt: { gte: since } },
     include: { service: true, customer: true },

@@ -142,3 +142,20 @@ export async function reconcilePending(providerId: string) {
   }
   await syncPlan(providerId);
 }
+
+// Plan réellement en vigueur : Pro seulement si un abonnement Pro est actif aujourd'hui.
+export async function effectivePlan(providerId: string, storedPlan: string): Promise<string> {
+  if (storedPlan !== "PRO") return storedPlan;
+  const today = doualaToday();
+  const active = await prisma.subscription.findFirst({
+    where: {
+      providerId,
+      plan: "PRO",
+      status: "ACTIVE",
+      startsOn: { lte: today },
+      endsOn: { gte: today },
+    },
+    select: { id: true },
+  });
+  return active ? "PRO" : "FREE";
+}

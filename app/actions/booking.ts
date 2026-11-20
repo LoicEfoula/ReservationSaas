@@ -9,6 +9,7 @@ import { notify } from "@/lib/notify";
 import { frDate, frTime } from "@/lib/whatsapp";
 import { cancelUrl } from "@/lib/cancel";
 import { getQuota } from "@/lib/quota";
+import { effectivePlan } from "@/lib/subscription";
 
 export type SlotItem = { startsAt: string; label: string };
 export type BookingResult =
@@ -90,7 +91,8 @@ export async function bookAppointment(input: unknown): Promise<BookingResult> {
   }
 
   let appointmentId: string;
-  const quota = await getQuota(provider.id, provider.plan, slot.startsAt);
+  const plan = await effectivePlan(provider.id, provider.plan);
+  const quota = await getQuota(provider.id, plan, slot.startsAt);
   if (quota.full) {
     return {
       ok: false,
