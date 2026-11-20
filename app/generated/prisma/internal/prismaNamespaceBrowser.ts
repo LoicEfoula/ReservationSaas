@@ -195,7 +195,8 @@ export const PaymentScalarFieldEnum = {
   method: 'method',
   externalRef: 'externalRef',
   status: 'status',
-  paidAt: 'paidAt'
+  paidAt: 'paidAt',
+  createdAt: 'createdAt'
 } as const
 
 export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]

@@ -9,6 +9,7 @@ datasource db {
 
 enum Plan {
   FREE
+  STARTER
   PRO
 }
 
@@ -51,6 +52,7 @@ enum SubscriptionStatus {
   ACTIVE
   EXPIRED
   CANCELLED
+  PENDING
 }
 
 enum PaymentMethod {
@@ -207,10 +209,11 @@ model Payment {
   id             String        @id @default(uuid()) @db.Uuid
   subscriptionId String        @map("subscription_id") @db.Uuid
   amountFcfa     Int           @map("amount_fcfa")
-  method         PaymentMethod
+  method         PaymentMethod?
   externalRef    String?       @unique @map("external_ref")
   status         PaymentStatus @default(PENDING)
   paidAt         DateTime?     @map("paid_at") @db.Timestamptz(6)
+  createdAt DateTime @default(now())
 
   subscription Subscription @relation(fields: [subscriptionId], references: [id])
 

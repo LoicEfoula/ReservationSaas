@@ -1,0 +1,8 @@
+-- AlterEnum
+ALTER TYPE "Plan" ADD VALUE 'STARTER';
+
+-- AlterEnum
+ALTER TYPE "SubscriptionStatus" ADD VALUE 'PENDING';
+
+-- AlterTable
+ALTER TABLE "payments" ADD COLUMN     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP;

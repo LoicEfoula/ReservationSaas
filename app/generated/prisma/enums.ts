@@ -11,6 +11,7 @@
 
 export const Plan = {
   FREE: 'FREE',
+  STARTER: 'STARTER',
   PRO: 'PRO'
 } as const
 
@@ -70,7 +71,8 @@ export type NotificationStatus = (typeof NotificationStatus)[keyof typeof Notifi
 export const SubscriptionStatus = {
   ACTIVE: 'ACTIVE',
   EXPIRED: 'EXPIRED',
-  CANCELLED: 'CANCELLED'
+  CANCELLED: 'CANCELLED',
+  PENDING: 'PENDING'
 } as const
 
 export type SubscriptionStatus = (typeof SubscriptionStatus)[keyof typeof SubscriptionStatus]

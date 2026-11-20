@@ -15,6 +15,7 @@ export default async function DashboardLayout({
         <Link href="/tableau-de-bord/services">Services</Link>
         <Link href="/tableau-de-bord/horaires">Horaires</Link>
         <Link href="/tableau-de-bord/conges">Congés</Link>
+	<Link href="/tableau-de-bord/abonnement">Abonnement</Link>
       </nav>
       {children}
     </div>
