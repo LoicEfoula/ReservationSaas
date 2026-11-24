@@ -52,6 +52,8 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   Provider: 'Provider',
+  Staff: 'Staff',
+  StaffService: 'StaffService',
   Service: 'Service',
   OpeningHour: 'OpeningHour',
   Closure: 'Closure',
@@ -97,6 +99,25 @@ export const ProviderScalarFieldEnum = {
 export type ProviderScalarFieldEnum = (typeof ProviderScalarFieldEnum)[keyof typeof ProviderScalarFieldEnum]
 
 
+export const StaffScalarFieldEnum = {
+  id: 'id',
+  providerId: 'providerId',
+  name: 'name',
+  active: 'active',
+  createdAt: 'createdAt'
+} as const
+
+export type StaffScalarFieldEnum = (typeof StaffScalarFieldEnum)[keyof typeof StaffScalarFieldEnum]
+
+
+export const StaffServiceScalarFieldEnum = {
+  staffId: 'staffId',
+  serviceId: 'serviceId'
+} as const
+
+export type StaffServiceScalarFieldEnum = (typeof StaffServiceScalarFieldEnum)[keyof typeof StaffServiceScalarFieldEnum]
+
+
 export const ServiceScalarFieldEnum = {
   id: 'id',
   providerId: 'providerId',
@@ -113,6 +134,7 @@ export type ServiceScalarFieldEnum = (typeof ServiceScalarFieldEnum)[keyof typeo
 export const OpeningHourScalarFieldEnum = {
   id: 'id',
   providerId: 'providerId',
+  staffId: 'staffId',
   weekday: 'weekday',
   opensAtMin: 'opensAtMin',
   closesAtMin: 'closesAtMin'
@@ -124,6 +146,7 @@ export type OpeningHourScalarFieldEnum = (typeof OpeningHourScalarFieldEnum)[key
 export const ClosureScalarFieldEnum = {
   id: 'id',
   providerId: 'providerId',
+  staffId: 'staffId',
   startsAt: 'startsAt',
   endsAt: 'endsAt',
   reason: 'reason'
@@ -146,6 +169,7 @@ export type CustomerScalarFieldEnum = (typeof CustomerScalarFieldEnum)[keyof typ
 export const AppointmentScalarFieldEnum = {
   id: 'id',
   providerId: 'providerId',
+  staffId: 'staffId',
   serviceId: 'serviceId',
   customerId: 'customerId',
   startsAt: 'startsAt',

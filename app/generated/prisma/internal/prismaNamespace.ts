@@ -398,6 +398,8 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   Provider: 'Provider',
+  Staff: 'Staff',
+  StaffService: 'StaffService',
   Service: 'Service',
   OpeningHour: 'OpeningHour',
   Closure: 'Closure',
@@ -421,7 +423,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "provider" | "service" | "openingHour" | "closure" | "customer" | "appointment" | "notification" | "subscription" | "payment"
+    modelProps: "provider" | "staff" | "staffService" | "service" | "openingHour" | "closure" | "customer" | "appointment" | "notification" | "subscription" | "payment"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -496,6 +498,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.ProviderCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.ProviderCountAggregateOutputType> | number
+        }
+      }
+    }
+    Staff: {
+      payload: Prisma.$StaffPayload<ExtArgs>
+      fields: Prisma.StaffFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.StaffFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.StaffFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffPayload>
+        }
+        findFirst: {
+          args: Prisma.StaffFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.StaffFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffPayload>
+        }
+        findMany: {
+          args: Prisma.StaffFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffPayload>[]
+        }
+        create: {
+          args: Prisma.StaffCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffPayload>
+        }
+        createMany: {
+          args: Prisma.StaffCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.StaffCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffPayload>[]
+        }
+        delete: {
+          args: Prisma.StaffDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffPayload>
+        }
+        update: {
+          args: Prisma.StaffUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffPayload>
+        }
+        deleteMany: {
+          args: Prisma.StaffDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.StaffUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.StaffUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffPayload>[]
+        }
+        upsert: {
+          args: Prisma.StaffUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffPayload>
+        }
+        aggregate: {
+          args: Prisma.StaffAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateStaff>
+        }
+        groupBy: {
+          args: Prisma.StaffGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.StaffGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.StaffCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.StaffCountAggregateOutputType> | number
+        }
+      }
+    }
+    StaffService: {
+      payload: Prisma.$StaffServicePayload<ExtArgs>
+      fields: Prisma.StaffServiceFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.StaffServiceFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffServicePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.StaffServiceFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffServicePayload>
+        }
+        findFirst: {
+          args: Prisma.StaffServiceFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffServicePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.StaffServiceFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffServicePayload>
+        }
+        findMany: {
+          args: Prisma.StaffServiceFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffServicePayload>[]
+        }
+        create: {
+          args: Prisma.StaffServiceCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffServicePayload>
+        }
+        createMany: {
+          args: Prisma.StaffServiceCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.StaffServiceCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffServicePayload>[]
+        }
+        delete: {
+          args: Prisma.StaffServiceDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffServicePayload>
+        }
+        update: {
+          args: Prisma.StaffServiceUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffServicePayload>
+        }
+        deleteMany: {
+          args: Prisma.StaffServiceDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.StaffServiceUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.StaffServiceUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffServicePayload>[]
+        }
+        upsert: {
+          args: Prisma.StaffServiceUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StaffServicePayload>
+        }
+        aggregate: {
+          args: Prisma.StaffServiceAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateStaffService>
+        }
+        groupBy: {
+          args: Prisma.StaffServiceGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.StaffServiceGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.StaffServiceCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.StaffServiceCountAggregateOutputType> | number
         }
       }
     }
@@ -1149,6 +1299,25 @@ export const ProviderScalarFieldEnum = {
 export type ProviderScalarFieldEnum = (typeof ProviderScalarFieldEnum)[keyof typeof ProviderScalarFieldEnum]
 
 
+export const StaffScalarFieldEnum = {
+  id: 'id',
+  providerId: 'providerId',
+  name: 'name',
+  active: 'active',
+  createdAt: 'createdAt'
+} as const
+
+export type StaffScalarFieldEnum = (typeof StaffScalarFieldEnum)[keyof typeof StaffScalarFieldEnum]
+
+
+export const StaffServiceScalarFieldEnum = {
+  staffId: 'staffId',
+  serviceId: 'serviceId'
+} as const
+
+export type StaffServiceScalarFieldEnum = (typeof StaffServiceScalarFieldEnum)[keyof typeof StaffServiceScalarFieldEnum]
+
+
 export const ServiceScalarFieldEnum = {
   id: 'id',
   providerId: 'providerId',
@@ -1165,6 +1334,7 @@ export type ServiceScalarFieldEnum = (typeof ServiceScalarFieldEnum)[keyof typeo
 export const OpeningHourScalarFieldEnum = {
   id: 'id',
   providerId: 'providerId',
+  staffId: 'staffId',
   weekday: 'weekday',
   opensAtMin: 'opensAtMin',
   closesAtMin: 'closesAtMin'
@@ -1176,6 +1346,7 @@ export type OpeningHourScalarFieldEnum = (typeof OpeningHourScalarFieldEnum)[key
 export const ClosureScalarFieldEnum = {
   id: 'id',
   providerId: 'providerId',
+  staffId: 'staffId',
   startsAt: 'startsAt',
   endsAt: 'endsAt',
   reason: 'reason'
@@ -1198,6 +1369,7 @@ export type CustomerScalarFieldEnum = (typeof CustomerScalarFieldEnum)[keyof typ
 export const AppointmentScalarFieldEnum = {
   id: 'id',
   providerId: 'providerId',
+  staffId: 'staffId',
   serviceId: 'serviceId',
   customerId: 'customerId',
   startsAt: 'startsAt',
@@ -1624,6 +1796,8 @@ export interface PrismaClientOptionsWithAdapter extends PrismaClientBaseOptions 
 export type PrismaClientOptions = PrismaClientOptionsWithAccelerateUrl | PrismaClientOptionsWithAdapter
 export type GlobalOmitConfig = {
   provider?: Prisma.ProviderOmit
+  staff?: Prisma.StaffOmit
+  staffService?: Prisma.StaffServiceOmit
   service?: Prisma.ServiceOmit
   openingHour?: Prisma.OpeningHourOmit
   closure?: Prisma.ClosureOmit

@@ -27,6 +27,7 @@ export type AggregateClosure = {
 export type ClosureMinAggregateOutputType = {
   id: string | null
   providerId: string | null
+  staffId: string | null
   startsAt: Date | null
   endsAt: Date | null
   reason: string | null
@@ -35,6 +36,7 @@ export type ClosureMinAggregateOutputType = {
 export type ClosureMaxAggregateOutputType = {
   id: string | null
   providerId: string | null
+  staffId: string | null
   startsAt: Date | null
   endsAt: Date | null
   reason: string | null
@@ -43,6 +45,7 @@ export type ClosureMaxAggregateOutputType = {
 export type ClosureCountAggregateOutputType = {
   id: number
   providerId: number
+  staffId: number
   startsAt: number
   endsAt: number
   reason: number
@@ -53,6 +56,7 @@ export type ClosureCountAggregateOutputType = {
 export type ClosureMinAggregateInputType = {
   id?: true
   providerId?: true
+  staffId?: true
   startsAt?: true
   endsAt?: true
   reason?: true
@@ -61,6 +65,7 @@ export type ClosureMinAggregateInputType = {
 export type ClosureMaxAggregateInputType = {
   id?: true
   providerId?: true
+  staffId?: true
   startsAt?: true
   endsAt?: true
   reason?: true
@@ -69,6 +74,7 @@ export type ClosureMaxAggregateInputType = {
 export type ClosureCountAggregateInputType = {
   id?: true
   providerId?: true
+  staffId?: true
   startsAt?: true
   endsAt?: true
   reason?: true
@@ -150,6 +156,7 @@ export type ClosureGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 export type ClosureGroupByOutputType = {
   id: string
   providerId: string
+  staffId: string | null
   startsAt: Date
   endsAt: Date
   reason: string | null
@@ -179,19 +186,23 @@ export type ClosureWhereInput = {
   NOT?: Prisma.ClosureWhereInput | Prisma.ClosureWhereInput[]
   id?: Prisma.UuidFilter<"Closure"> | string
   providerId?: Prisma.UuidFilter<"Closure"> | string
+  staffId?: Prisma.UuidNullableFilter<"Closure"> | string | null
   startsAt?: Prisma.DateTimeFilter<"Closure"> | Date | string
   endsAt?: Prisma.DateTimeFilter<"Closure"> | Date | string
   reason?: Prisma.StringNullableFilter<"Closure"> | string | null
   provider?: Prisma.XOR<Prisma.ProviderScalarRelationFilter, Prisma.ProviderWhereInput>
+  staff?: Prisma.XOR<Prisma.StaffNullableScalarRelationFilter, Prisma.StaffWhereInput> | null
 }
 
 export type ClosureOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   providerId?: Prisma.SortOrder
+  staffId?: Prisma.SortOrderInput | Prisma.SortOrder
   startsAt?: Prisma.SortOrder
   endsAt?: Prisma.SortOrder
   reason?: Prisma.SortOrderInput | Prisma.SortOrder
   provider?: Prisma.ProviderOrderByWithRelationInput
+  staff?: Prisma.StaffOrderByWithRelationInput
 }
 
 export type ClosureWhereUniqueInput = Prisma.AtLeast<{
@@ -200,15 +211,18 @@ export type ClosureWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.ClosureWhereInput[]
   NOT?: Prisma.ClosureWhereInput | Prisma.ClosureWhereInput[]
   providerId?: Prisma.UuidFilter<"Closure"> | string
+  staffId?: Prisma.UuidNullableFilter<"Closure"> | string | null
   startsAt?: Prisma.DateTimeFilter<"Closure"> | Date | string
   endsAt?: Prisma.DateTimeFilter<"Closure"> | Date | string
   reason?: Prisma.StringNullableFilter<"Closure"> | string | null
   provider?: Prisma.XOR<Prisma.ProviderScalarRelationFilter, Prisma.ProviderWhereInput>
+  staff?: Prisma.XOR<Prisma.StaffNullableScalarRelationFilter, Prisma.StaffWhereInput> | null
 }, "id">
 
 export type ClosureOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   providerId?: Prisma.SortOrder
+  staffId?: Prisma.SortOrderInput | Prisma.SortOrder
   startsAt?: Prisma.SortOrder
   endsAt?: Prisma.SortOrder
   reason?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -223,6 +237,7 @@ export type ClosureScalarWhereWithAggregatesInput = {
   NOT?: Prisma.ClosureScalarWhereWithAggregatesInput | Prisma.ClosureScalarWhereWithAggregatesInput[]
   id?: Prisma.UuidWithAggregatesFilter<"Closure"> | string
   providerId?: Prisma.UuidWithAggregatesFilter<"Closure"> | string
+  staffId?: Prisma.UuidNullableWithAggregatesFilter<"Closure"> | string | null
   startsAt?: Prisma.DateTimeWithAggregatesFilter<"Closure"> | Date | string
   endsAt?: Prisma.DateTimeWithAggregatesFilter<"Closure"> | Date | string
   reason?: Prisma.StringNullableWithAggregatesFilter<"Closure"> | string | null
@@ -234,11 +249,13 @@ export type ClosureCreateInput = {
   endsAt: Date | string
   reason?: string | null
   provider: Prisma.ProviderCreateNestedOneWithoutClosuresInput
+  staff?: Prisma.StaffCreateNestedOneWithoutClosuresInput
 }
 
 export type ClosureUncheckedCreateInput = {
   id?: string
   providerId: string
+  staffId?: string | null
   startsAt: Date | string
   endsAt: Date | string
   reason?: string | null
@@ -250,11 +267,13 @@ export type ClosureUpdateInput = {
   endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   provider?: Prisma.ProviderUpdateOneRequiredWithoutClosuresNestedInput
+  staff?: Prisma.StaffUpdateOneWithoutClosuresNestedInput
 }
 
 export type ClosureUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   providerId?: Prisma.StringFieldUpdateOperationsInput | string
+  staffId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -263,6 +282,7 @@ export type ClosureUncheckedUpdateInput = {
 export type ClosureCreateManyInput = {
   id?: string
   providerId: string
+  staffId?: string | null
   startsAt: Date | string
   endsAt: Date | string
   reason?: string | null
@@ -278,6 +298,7 @@ export type ClosureUpdateManyMutationInput = {
 export type ClosureUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   providerId?: Prisma.StringFieldUpdateOperationsInput | string
+  staffId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -296,6 +317,7 @@ export type ClosureOrderByRelationAggregateInput = {
 export type ClosureCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   providerId?: Prisma.SortOrder
+  staffId?: Prisma.SortOrder
   startsAt?: Prisma.SortOrder
   endsAt?: Prisma.SortOrder
   reason?: Prisma.SortOrder
@@ -304,6 +326,7 @@ export type ClosureCountOrderByAggregateInput = {
 export type ClosureMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   providerId?: Prisma.SortOrder
+  staffId?: Prisma.SortOrder
   startsAt?: Prisma.SortOrder
   endsAt?: Prisma.SortOrder
   reason?: Prisma.SortOrder
@@ -312,6 +335,7 @@ export type ClosureMaxOrderByAggregateInput = {
 export type ClosureMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   providerId?: Prisma.SortOrder
+  staffId?: Prisma.SortOrder
   startsAt?: Prisma.SortOrder
   endsAt?: Prisma.SortOrder
   reason?: Prisma.SortOrder
@@ -359,15 +383,59 @@ export type ClosureUncheckedUpdateManyWithoutProviderNestedInput = {
   deleteMany?: Prisma.ClosureScalarWhereInput | Prisma.ClosureScalarWhereInput[]
 }
 
+export type ClosureCreateNestedManyWithoutStaffInput = {
+  create?: Prisma.XOR<Prisma.ClosureCreateWithoutStaffInput, Prisma.ClosureUncheckedCreateWithoutStaffInput> | Prisma.ClosureCreateWithoutStaffInput[] | Prisma.ClosureUncheckedCreateWithoutStaffInput[]
+  connectOrCreate?: Prisma.ClosureCreateOrConnectWithoutStaffInput | Prisma.ClosureCreateOrConnectWithoutStaffInput[]
+  createMany?: Prisma.ClosureCreateManyStaffInputEnvelope
+  connect?: Prisma.ClosureWhereUniqueInput | Prisma.ClosureWhereUniqueInput[]
+}
+
+export type ClosureUncheckedCreateNestedManyWithoutStaffInput = {
+  create?: Prisma.XOR<Prisma.ClosureCreateWithoutStaffInput, Prisma.ClosureUncheckedCreateWithoutStaffInput> | Prisma.ClosureCreateWithoutStaffInput[] | Prisma.ClosureUncheckedCreateWithoutStaffInput[]
+  connectOrCreate?: Prisma.ClosureCreateOrConnectWithoutStaffInput | Prisma.ClosureCreateOrConnectWithoutStaffInput[]
+  createMany?: Prisma.ClosureCreateManyStaffInputEnvelope
+  connect?: Prisma.ClosureWhereUniqueInput | Prisma.ClosureWhereUniqueInput[]
+}
+
+export type ClosureUpdateManyWithoutStaffNestedInput = {
+  create?: Prisma.XOR<Prisma.ClosureCreateWithoutStaffInput, Prisma.ClosureUncheckedCreateWithoutStaffInput> | Prisma.ClosureCreateWithoutStaffInput[] | Prisma.ClosureUncheckedCreateWithoutStaffInput[]
+  connectOrCreate?: Prisma.ClosureCreateOrConnectWithoutStaffInput | Prisma.ClosureCreateOrConnectWithoutStaffInput[]
+  upsert?: Prisma.ClosureUpsertWithWhereUniqueWithoutStaffInput | Prisma.ClosureUpsertWithWhereUniqueWithoutStaffInput[]
+  createMany?: Prisma.ClosureCreateManyStaffInputEnvelope
+  set?: Prisma.ClosureWhereUniqueInput | Prisma.ClosureWhereUniqueInput[]
+  disconnect?: Prisma.ClosureWhereUniqueInput | Prisma.ClosureWhereUniqueInput[]
+  delete?: Prisma.ClosureWhereUniqueInput | Prisma.ClosureWhereUniqueInput[]
+  connect?: Prisma.ClosureWhereUniqueInput | Prisma.ClosureWhereUniqueInput[]
+  update?: Prisma.ClosureUpdateWithWhereUniqueWithoutStaffInput | Prisma.ClosureUpdateWithWhereUniqueWithoutStaffInput[]
+  updateMany?: Prisma.ClosureUpdateManyWithWhereWithoutStaffInput | Prisma.ClosureUpdateManyWithWhereWithoutStaffInput[]
+  deleteMany?: Prisma.ClosureScalarWhereInput | Prisma.ClosureScalarWhereInput[]
+}
+
+export type ClosureUncheckedUpdateManyWithoutStaffNestedInput = {
+  create?: Prisma.XOR<Prisma.ClosureCreateWithoutStaffInput, Prisma.ClosureUncheckedCreateWithoutStaffInput> | Prisma.ClosureCreateWithoutStaffInput[] | Prisma.ClosureUncheckedCreateWithoutStaffInput[]
+  connectOrCreate?: Prisma.ClosureCreateOrConnectWithoutStaffInput | Prisma.ClosureCreateOrConnectWithoutStaffInput[]
+  upsert?: Prisma.ClosureUpsertWithWhereUniqueWithoutStaffInput | Prisma.ClosureUpsertWithWhereUniqueWithoutStaffInput[]
+  createMany?: Prisma.ClosureCreateManyStaffInputEnvelope
+  set?: Prisma.ClosureWhereUniqueInput | Prisma.ClosureWhereUniqueInput[]
+  disconnect?: Prisma.ClosureWhereUniqueInput | Prisma.ClosureWhereUniqueInput[]
+  delete?: Prisma.ClosureWhereUniqueInput | Prisma.ClosureWhereUniqueInput[]
+  connect?: Prisma.ClosureWhereUniqueInput | Prisma.ClosureWhereUniqueInput[]
+  update?: Prisma.ClosureUpdateWithWhereUniqueWithoutStaffInput | Prisma.ClosureUpdateWithWhereUniqueWithoutStaffInput[]
+  updateMany?: Prisma.ClosureUpdateManyWithWhereWithoutStaffInput | Prisma.ClosureUpdateManyWithWhereWithoutStaffInput[]
+  deleteMany?: Prisma.ClosureScalarWhereInput | Prisma.ClosureScalarWhereInput[]
+}
+
 export type ClosureCreateWithoutProviderInput = {
   id?: string
   startsAt: Date | string
   endsAt: Date | string
   reason?: string | null
+  staff?: Prisma.StaffCreateNestedOneWithoutClosuresInput
 }
 
 export type ClosureUncheckedCreateWithoutProviderInput = {
   id?: string
+  staffId?: string | null
   startsAt: Date | string
   endsAt: Date | string
   reason?: string | null
@@ -405,13 +473,57 @@ export type ClosureScalarWhereInput = {
   NOT?: Prisma.ClosureScalarWhereInput | Prisma.ClosureScalarWhereInput[]
   id?: Prisma.UuidFilter<"Closure"> | string
   providerId?: Prisma.UuidFilter<"Closure"> | string
+  staffId?: Prisma.UuidNullableFilter<"Closure"> | string | null
   startsAt?: Prisma.DateTimeFilter<"Closure"> | Date | string
   endsAt?: Prisma.DateTimeFilter<"Closure"> | Date | string
   reason?: Prisma.StringNullableFilter<"Closure"> | string | null
 }
 
+export type ClosureCreateWithoutStaffInput = {
+  id?: string
+  startsAt: Date | string
+  endsAt: Date | string
+  reason?: string | null
+  provider: Prisma.ProviderCreateNestedOneWithoutClosuresInput
+}
+
+export type ClosureUncheckedCreateWithoutStaffInput = {
+  id?: string
+  providerId: string
+  startsAt: Date | string
+  endsAt: Date | string
+  reason?: string | null
+}
+
+export type ClosureCreateOrConnectWithoutStaffInput = {
+  where: Prisma.ClosureWhereUniqueInput
+  create: Prisma.XOR<Prisma.ClosureCreateWithoutStaffInput, Prisma.ClosureUncheckedCreateWithoutStaffInput>
+}
+
+export type ClosureCreateManyStaffInputEnvelope = {
+  data: Prisma.ClosureCreateManyStaffInput | Prisma.ClosureCreateManyStaffInput[]
+  skipDuplicates?: boolean
+}
+
+export type ClosureUpsertWithWhereUniqueWithoutStaffInput = {
+  where: Prisma.ClosureWhereUniqueInput
+  update: Prisma.XOR<Prisma.ClosureUpdateWithoutStaffInput, Prisma.ClosureUncheckedUpdateWithoutStaffInput>
+  create: Prisma.XOR<Prisma.ClosureCreateWithoutStaffInput, Prisma.ClosureUncheckedCreateWithoutStaffInput>
+}
+
+export type ClosureUpdateWithWhereUniqueWithoutStaffInput = {
+  where: Prisma.ClosureWhereUniqueInput
+  data: Prisma.XOR<Prisma.ClosureUpdateWithoutStaffInput, Prisma.ClosureUncheckedUpdateWithoutStaffInput>
+}
+
+export type ClosureUpdateManyWithWhereWithoutStaffInput = {
+  where: Prisma.ClosureScalarWhereInput
+  data: Prisma.XOR<Prisma.ClosureUpdateManyMutationInput, Prisma.ClosureUncheckedUpdateManyWithoutStaffInput>
+}
+
 export type ClosureCreateManyProviderInput = {
   id?: string
+  staffId?: string | null
   startsAt: Date | string
   endsAt: Date | string
   reason?: string | null
@@ -422,10 +534,12 @@ export type ClosureUpdateWithoutProviderInput = {
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  staff?: Prisma.StaffUpdateOneWithoutClosuresNestedInput
 }
 
 export type ClosureUncheckedUpdateWithoutProviderInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  staffId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -433,6 +547,39 @@ export type ClosureUncheckedUpdateWithoutProviderInput = {
 
 export type ClosureUncheckedUpdateManyWithoutProviderInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  staffId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type ClosureCreateManyStaffInput = {
+  id?: string
+  providerId: string
+  startsAt: Date | string
+  endsAt: Date | string
+  reason?: string | null
+}
+
+export type ClosureUpdateWithoutStaffInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.ProviderUpdateOneRequiredWithoutClosuresNestedInput
+}
+
+export type ClosureUncheckedUpdateWithoutStaffInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerId?: Prisma.StringFieldUpdateOperationsInput | string
+  startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type ClosureUncheckedUpdateManyWithoutStaffInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerId?: Prisma.StringFieldUpdateOperationsInput | string
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -443,57 +590,69 @@ export type ClosureUncheckedUpdateManyWithoutProviderInput = {
 export type ClosureSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   providerId?: boolean
+  staffId?: boolean
   startsAt?: boolean
   endsAt?: boolean
   reason?: boolean
   provider?: boolean | Prisma.ProviderDefaultArgs<ExtArgs>
+  staff?: boolean | Prisma.Closure$staffArgs<ExtArgs>
 }, ExtArgs["result"]["closure"]>
 
 export type ClosureSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   providerId?: boolean
+  staffId?: boolean
   startsAt?: boolean
   endsAt?: boolean
   reason?: boolean
   provider?: boolean | Prisma.ProviderDefaultArgs<ExtArgs>
+  staff?: boolean | Prisma.Closure$staffArgs<ExtArgs>
 }, ExtArgs["result"]["closure"]>
 
 export type ClosureSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   providerId?: boolean
+  staffId?: boolean
   startsAt?: boolean
   endsAt?: boolean
   reason?: boolean
   provider?: boolean | Prisma.ProviderDefaultArgs<ExtArgs>
+  staff?: boolean | Prisma.Closure$staffArgs<ExtArgs>
 }, ExtArgs["result"]["closure"]>
 
 export type ClosureSelectScalar = {
   id?: boolean
   providerId?: boolean
+  staffId?: boolean
   startsAt?: boolean
   endsAt?: boolean
   reason?: boolean
 }
 
-export type ClosureOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "providerId" | "startsAt" | "endsAt" | "reason", ExtArgs["result"]["closure"]>
+export type ClosureOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "providerId" | "staffId" | "startsAt" | "endsAt" | "reason", ExtArgs["result"]["closure"]>
 export type ClosureInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   provider?: boolean | Prisma.ProviderDefaultArgs<ExtArgs>
+  staff?: boolean | Prisma.Closure$staffArgs<ExtArgs>
 }
 export type ClosureIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   provider?: boolean | Prisma.ProviderDefaultArgs<ExtArgs>
+  staff?: boolean | Prisma.Closure$staffArgs<ExtArgs>
 }
 export type ClosureIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   provider?: boolean | Prisma.ProviderDefaultArgs<ExtArgs>
+  staff?: boolean | Prisma.Closure$staffArgs<ExtArgs>
 }
 
 export type $ClosurePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Closure"
   objects: {
     provider: Prisma.$ProviderPayload<ExtArgs>
+    staff: Prisma.$StaffPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     providerId: string
+    staffId: string | null
     startsAt: Date
     endsAt: Date
     reason: string | null
@@ -892,6 +1051,7 @@ readonly fields: ClosureFieldRefs;
 export interface Prisma__ClosureClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   provider<T extends Prisma.ProviderDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProviderDefaultArgs<ExtArgs>>): Prisma.Prisma__ProviderClient<runtime.Types.Result.GetResult<Prisma.$ProviderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  staff<T extends Prisma.Closure$staffArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Closure$staffArgs<ExtArgs>>): Prisma.Prisma__StaffClient<runtime.Types.Result.GetResult<Prisma.$StaffPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -923,6 +1083,7 @@ export interface Prisma__ClosureClient<T, Null = never, ExtArgs extends runtime.
 export interface ClosureFieldRefs {
   readonly id: Prisma.FieldRef<"Closure", 'String'>
   readonly providerId: Prisma.FieldRef<"Closure", 'String'>
+  readonly staffId: Prisma.FieldRef<"Closure", 'String'>
   readonly startsAt: Prisma.FieldRef<"Closure", 'DateTime'>
   readonly endsAt: Prisma.FieldRef<"Closure", 'DateTime'>
   readonly reason: Prisma.FieldRef<"Closure", 'String'>
@@ -1324,6 +1485,25 @@ export type ClosureDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Limit how many Closures to delete.
    */
   limit?: number
+}
+
+/**
+ * Closure.staff
+ */
+export type Closure$staffArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Staff
+   */
+  select?: Prisma.StaffSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Staff
+   */
+  omit?: Prisma.StaffOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StaffInclude<ExtArgs> | null
+  where?: Prisma.StaffWhereInput
 }
 
 /**

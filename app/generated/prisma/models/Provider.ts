@@ -295,6 +295,7 @@ export type ProviderWhereInput = {
   appointments?: Prisma.AppointmentListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
   subscriptions?: Prisma.SubscriptionListRelationFilter
+  staff?: Prisma.StaffListRelationFilter
 }
 
 export type ProviderOrderByWithRelationInput = {
@@ -318,6 +319,7 @@ export type ProviderOrderByWithRelationInput = {
   appointments?: Prisma.AppointmentOrderByRelationAggregateInput
   notifications?: Prisma.NotificationOrderByRelationAggregateInput
   subscriptions?: Prisma.SubscriptionOrderByRelationAggregateInput
+  staff?: Prisma.StaffOrderByRelationAggregateInput
 }
 
 export type ProviderWhereUniqueInput = Prisma.AtLeast<{
@@ -344,6 +346,7 @@ export type ProviderWhereUniqueInput = Prisma.AtLeast<{
   appointments?: Prisma.AppointmentListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
   subscriptions?: Prisma.SubscriptionListRelationFilter
+  staff?: Prisma.StaffListRelationFilter
 }, "id" | "slug" | "phone">
 
 export type ProviderOrderByWithAggregationInput = {
@@ -407,6 +410,7 @@ export type ProviderCreateInput = {
   appointments?: Prisma.AppointmentCreateNestedManyWithoutProviderInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutProviderInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutProviderInput
+  staff?: Prisma.StaffCreateNestedManyWithoutProviderInput
 }
 
 export type ProviderUncheckedCreateInput = {
@@ -430,6 +434,7 @@ export type ProviderUncheckedCreateInput = {
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutProviderInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutProviderInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutProviderInput
+  staff?: Prisma.StaffUncheckedCreateNestedManyWithoutProviderInput
 }
 
 export type ProviderUpdateInput = {
@@ -453,6 +458,7 @@ export type ProviderUpdateInput = {
   appointments?: Prisma.AppointmentUpdateManyWithoutProviderNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutProviderNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutProviderNestedInput
+  staff?: Prisma.StaffUpdateManyWithoutProviderNestedInput
 }
 
 export type ProviderUncheckedUpdateInput = {
@@ -476,6 +482,7 @@ export type ProviderUncheckedUpdateInput = {
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutProviderNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutProviderNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutProviderNestedInput
+  staff?: Prisma.StaffUncheckedUpdateManyWithoutProviderNestedInput
 }
 
 export type ProviderCreateManyInput = {
@@ -615,6 +622,20 @@ export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
 
+export type ProviderCreateNestedOneWithoutStaffInput = {
+  create?: Prisma.XOR<Prisma.ProviderCreateWithoutStaffInput, Prisma.ProviderUncheckedCreateWithoutStaffInput>
+  connectOrCreate?: Prisma.ProviderCreateOrConnectWithoutStaffInput
+  connect?: Prisma.ProviderWhereUniqueInput
+}
+
+export type ProviderUpdateOneRequiredWithoutStaffNestedInput = {
+  create?: Prisma.XOR<Prisma.ProviderCreateWithoutStaffInput, Prisma.ProviderUncheckedCreateWithoutStaffInput>
+  connectOrCreate?: Prisma.ProviderCreateOrConnectWithoutStaffInput
+  upsert?: Prisma.ProviderUpsertWithoutStaffInput
+  connect?: Prisma.ProviderWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ProviderUpdateToOneWithWhereWithoutStaffInput, Prisma.ProviderUpdateWithoutStaffInput>, Prisma.ProviderUncheckedUpdateWithoutStaffInput>
+}
+
 export type ProviderCreateNestedOneWithoutServicesInput = {
   create?: Prisma.XOR<Prisma.ProviderCreateWithoutServicesInput, Prisma.ProviderUncheckedCreateWithoutServicesInput>
   connectOrCreate?: Prisma.ProviderCreateOrConnectWithoutServicesInput
@@ -713,6 +734,114 @@ export type ProviderUpdateOneRequiredWithoutSubscriptionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProviderUpdateToOneWithWhereWithoutSubscriptionsInput, Prisma.ProviderUpdateWithoutSubscriptionsInput>, Prisma.ProviderUncheckedUpdateWithoutSubscriptionsInput>
 }
 
+export type ProviderCreateWithoutStaffInput = {
+  id?: string
+  slug: string
+  businessName: string
+  ownerName: string
+  phone: string
+  email?: string | null
+  passwordHash: string
+  timezone?: string
+  plan?: $Enums.Plan
+  minNoticeMinutes?: number
+  maxAdvanceDays?: number
+  cancelLimitMinutes?: number
+  createdAt?: Date | string
+  services?: Prisma.ServiceCreateNestedManyWithoutProviderInput
+  openingHours?: Prisma.OpeningHourCreateNestedManyWithoutProviderInput
+  closures?: Prisma.ClosureCreateNestedManyWithoutProviderInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutProviderInput
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutProviderInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutProviderInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutProviderInput
+}
+
+export type ProviderUncheckedCreateWithoutStaffInput = {
+  id?: string
+  slug: string
+  businessName: string
+  ownerName: string
+  phone: string
+  email?: string | null
+  passwordHash: string
+  timezone?: string
+  plan?: $Enums.Plan
+  minNoticeMinutes?: number
+  maxAdvanceDays?: number
+  cancelLimitMinutes?: number
+  createdAt?: Date | string
+  services?: Prisma.ServiceUncheckedCreateNestedManyWithoutProviderInput
+  openingHours?: Prisma.OpeningHourUncheckedCreateNestedManyWithoutProviderInput
+  closures?: Prisma.ClosureUncheckedCreateNestedManyWithoutProviderInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutProviderInput
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutProviderInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutProviderInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutProviderInput
+}
+
+export type ProviderCreateOrConnectWithoutStaffInput = {
+  where: Prisma.ProviderWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProviderCreateWithoutStaffInput, Prisma.ProviderUncheckedCreateWithoutStaffInput>
+}
+
+export type ProviderUpsertWithoutStaffInput = {
+  update: Prisma.XOR<Prisma.ProviderUpdateWithoutStaffInput, Prisma.ProviderUncheckedUpdateWithoutStaffInput>
+  create: Prisma.XOR<Prisma.ProviderCreateWithoutStaffInput, Prisma.ProviderUncheckedCreateWithoutStaffInput>
+  where?: Prisma.ProviderWhereInput
+}
+
+export type ProviderUpdateToOneWithWhereWithoutStaffInput = {
+  where?: Prisma.ProviderWhereInput
+  data: Prisma.XOR<Prisma.ProviderUpdateWithoutStaffInput, Prisma.ProviderUncheckedUpdateWithoutStaffInput>
+}
+
+export type ProviderUpdateWithoutStaffInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  businessName?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  minNoticeMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  maxAdvanceDays?: Prisma.IntFieldUpdateOperationsInput | number
+  cancelLimitMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  services?: Prisma.ServiceUpdateManyWithoutProviderNestedInput
+  openingHours?: Prisma.OpeningHourUpdateManyWithoutProviderNestedInput
+  closures?: Prisma.ClosureUpdateManyWithoutProviderNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutProviderNestedInput
+  appointments?: Prisma.AppointmentUpdateManyWithoutProviderNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutProviderNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutProviderNestedInput
+}
+
+export type ProviderUncheckedUpdateWithoutStaffInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  businessName?: Prisma.StringFieldUpdateOperationsInput | string
+  ownerName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  timezone?: Prisma.StringFieldUpdateOperationsInput | string
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  minNoticeMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  maxAdvanceDays?: Prisma.IntFieldUpdateOperationsInput | number
+  cancelLimitMinutes?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  services?: Prisma.ServiceUncheckedUpdateManyWithoutProviderNestedInput
+  openingHours?: Prisma.OpeningHourUncheckedUpdateManyWithoutProviderNestedInput
+  closures?: Prisma.ClosureUncheckedUpdateManyWithoutProviderNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutProviderNestedInput
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutProviderNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutProviderNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutProviderNestedInput
+}
+
 export type ProviderCreateWithoutServicesInput = {
   id?: string
   slug: string
@@ -733,6 +862,7 @@ export type ProviderCreateWithoutServicesInput = {
   appointments?: Prisma.AppointmentCreateNestedManyWithoutProviderInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutProviderInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutProviderInput
+  staff?: Prisma.StaffCreateNestedManyWithoutProviderInput
 }
 
 export type ProviderUncheckedCreateWithoutServicesInput = {
@@ -755,6 +885,7 @@ export type ProviderUncheckedCreateWithoutServicesInput = {
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutProviderInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutProviderInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutProviderInput
+  staff?: Prisma.StaffUncheckedCreateNestedManyWithoutProviderInput
 }
 
 export type ProviderCreateOrConnectWithoutServicesInput = {
@@ -793,6 +924,7 @@ export type ProviderUpdateWithoutServicesInput = {
   appointments?: Prisma.AppointmentUpdateManyWithoutProviderNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutProviderNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutProviderNestedInput
+  staff?: Prisma.StaffUpdateManyWithoutProviderNestedInput
 }
 
 export type ProviderUncheckedUpdateWithoutServicesInput = {
@@ -815,6 +947,7 @@ export type ProviderUncheckedUpdateWithoutServicesInput = {
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutProviderNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutProviderNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutProviderNestedInput
+  staff?: Prisma.StaffUncheckedUpdateManyWithoutProviderNestedInput
 }
 
 export type ProviderCreateWithoutOpeningHoursInput = {
@@ -837,6 +970,7 @@ export type ProviderCreateWithoutOpeningHoursInput = {
   appointments?: Prisma.AppointmentCreateNestedManyWithoutProviderInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutProviderInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutProviderInput
+  staff?: Prisma.StaffCreateNestedManyWithoutProviderInput
 }
 
 export type ProviderUncheckedCreateWithoutOpeningHoursInput = {
@@ -859,6 +993,7 @@ export type ProviderUncheckedCreateWithoutOpeningHoursInput = {
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutProviderInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutProviderInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutProviderInput
+  staff?: Prisma.StaffUncheckedCreateNestedManyWithoutProviderInput
 }
 
 export type ProviderCreateOrConnectWithoutOpeningHoursInput = {
@@ -897,6 +1032,7 @@ export type ProviderUpdateWithoutOpeningHoursInput = {
   appointments?: Prisma.AppointmentUpdateManyWithoutProviderNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutProviderNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutProviderNestedInput
+  staff?: Prisma.StaffUpdateManyWithoutProviderNestedInput
 }
 
 export type ProviderUncheckedUpdateWithoutOpeningHoursInput = {
@@ -919,6 +1055,7 @@ export type ProviderUncheckedUpdateWithoutOpeningHoursInput = {
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutProviderNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutProviderNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutProviderNestedInput
+  staff?: Prisma.StaffUncheckedUpdateManyWithoutProviderNestedInput
 }
 
 export type ProviderCreateWithoutClosuresInput = {
@@ -941,6 +1078,7 @@ export type ProviderCreateWithoutClosuresInput = {
   appointments?: Prisma.AppointmentCreateNestedManyWithoutProviderInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutProviderInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutProviderInput
+  staff?: Prisma.StaffCreateNestedManyWithoutProviderInput
 }
 
 export type ProviderUncheckedCreateWithoutClosuresInput = {
@@ -963,6 +1101,7 @@ export type ProviderUncheckedCreateWithoutClosuresInput = {
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutProviderInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutProviderInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutProviderInput
+  staff?: Prisma.StaffUncheckedCreateNestedManyWithoutProviderInput
 }
 
 export type ProviderCreateOrConnectWithoutClosuresInput = {
@@ -1001,6 +1140,7 @@ export type ProviderUpdateWithoutClosuresInput = {
   appointments?: Prisma.AppointmentUpdateManyWithoutProviderNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutProviderNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutProviderNestedInput
+  staff?: Prisma.StaffUpdateManyWithoutProviderNestedInput
 }
 
 export type ProviderUncheckedUpdateWithoutClosuresInput = {
@@ -1023,6 +1163,7 @@ export type ProviderUncheckedUpdateWithoutClosuresInput = {
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutProviderNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutProviderNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutProviderNestedInput
+  staff?: Prisma.StaffUncheckedUpdateManyWithoutProviderNestedInput
 }
 
 export type ProviderCreateWithoutCustomersInput = {
@@ -1045,6 +1186,7 @@ export type ProviderCreateWithoutCustomersInput = {
   appointments?: Prisma.AppointmentCreateNestedManyWithoutProviderInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutProviderInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutProviderInput
+  staff?: Prisma.StaffCreateNestedManyWithoutProviderInput
 }
 
 export type ProviderUncheckedCreateWithoutCustomersInput = {
@@ -1067,6 +1209,7 @@ export type ProviderUncheckedCreateWithoutCustomersInput = {
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutProviderInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutProviderInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutProviderInput
+  staff?: Prisma.StaffUncheckedCreateNestedManyWithoutProviderInput
 }
 
 export type ProviderCreateOrConnectWithoutCustomersInput = {
@@ -1105,6 +1248,7 @@ export type ProviderUpdateWithoutCustomersInput = {
   appointments?: Prisma.AppointmentUpdateManyWithoutProviderNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutProviderNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutProviderNestedInput
+  staff?: Prisma.StaffUpdateManyWithoutProviderNestedInput
 }
 
 export type ProviderUncheckedUpdateWithoutCustomersInput = {
@@ -1127,6 +1271,7 @@ export type ProviderUncheckedUpdateWithoutCustomersInput = {
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutProviderNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutProviderNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutProviderNestedInput
+  staff?: Prisma.StaffUncheckedUpdateManyWithoutProviderNestedInput
 }
 
 export type ProviderCreateWithoutAppointmentsInput = {
@@ -1149,6 +1294,7 @@ export type ProviderCreateWithoutAppointmentsInput = {
   customers?: Prisma.CustomerCreateNestedManyWithoutProviderInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutProviderInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutProviderInput
+  staff?: Prisma.StaffCreateNestedManyWithoutProviderInput
 }
 
 export type ProviderUncheckedCreateWithoutAppointmentsInput = {
@@ -1171,6 +1317,7 @@ export type ProviderUncheckedCreateWithoutAppointmentsInput = {
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutProviderInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutProviderInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutProviderInput
+  staff?: Prisma.StaffUncheckedCreateNestedManyWithoutProviderInput
 }
 
 export type ProviderCreateOrConnectWithoutAppointmentsInput = {
@@ -1209,6 +1356,7 @@ export type ProviderUpdateWithoutAppointmentsInput = {
   customers?: Prisma.CustomerUpdateManyWithoutProviderNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutProviderNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutProviderNestedInput
+  staff?: Prisma.StaffUpdateManyWithoutProviderNestedInput
 }
 
 export type ProviderUncheckedUpdateWithoutAppointmentsInput = {
@@ -1231,6 +1379,7 @@ export type ProviderUncheckedUpdateWithoutAppointmentsInput = {
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutProviderNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutProviderNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutProviderNestedInput
+  staff?: Prisma.StaffUncheckedUpdateManyWithoutProviderNestedInput
 }
 
 export type ProviderCreateWithoutNotificationsInput = {
@@ -1253,6 +1402,7 @@ export type ProviderCreateWithoutNotificationsInput = {
   customers?: Prisma.CustomerCreateNestedManyWithoutProviderInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutProviderInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutProviderInput
+  staff?: Prisma.StaffCreateNestedManyWithoutProviderInput
 }
 
 export type ProviderUncheckedCreateWithoutNotificationsInput = {
@@ -1275,6 +1425,7 @@ export type ProviderUncheckedCreateWithoutNotificationsInput = {
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutProviderInput
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutProviderInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutProviderInput
+  staff?: Prisma.StaffUncheckedCreateNestedManyWithoutProviderInput
 }
 
 export type ProviderCreateOrConnectWithoutNotificationsInput = {
@@ -1313,6 +1464,7 @@ export type ProviderUpdateWithoutNotificationsInput = {
   customers?: Prisma.CustomerUpdateManyWithoutProviderNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutProviderNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutProviderNestedInput
+  staff?: Prisma.StaffUpdateManyWithoutProviderNestedInput
 }
 
 export type ProviderUncheckedUpdateWithoutNotificationsInput = {
@@ -1335,6 +1487,7 @@ export type ProviderUncheckedUpdateWithoutNotificationsInput = {
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutProviderNestedInput
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutProviderNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutProviderNestedInput
+  staff?: Prisma.StaffUncheckedUpdateManyWithoutProviderNestedInput
 }
 
 export type ProviderCreateWithoutSubscriptionsInput = {
@@ -1357,6 +1510,7 @@ export type ProviderCreateWithoutSubscriptionsInput = {
   customers?: Prisma.CustomerCreateNestedManyWithoutProviderInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutProviderInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutProviderInput
+  staff?: Prisma.StaffCreateNestedManyWithoutProviderInput
 }
 
 export type ProviderUncheckedCreateWithoutSubscriptionsInput = {
@@ -1379,6 +1533,7 @@ export type ProviderUncheckedCreateWithoutSubscriptionsInput = {
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutProviderInput
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutProviderInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutProviderInput
+  staff?: Prisma.StaffUncheckedCreateNestedManyWithoutProviderInput
 }
 
 export type ProviderCreateOrConnectWithoutSubscriptionsInput = {
@@ -1417,6 +1572,7 @@ export type ProviderUpdateWithoutSubscriptionsInput = {
   customers?: Prisma.CustomerUpdateManyWithoutProviderNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutProviderNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutProviderNestedInput
+  staff?: Prisma.StaffUpdateManyWithoutProviderNestedInput
 }
 
 export type ProviderUncheckedUpdateWithoutSubscriptionsInput = {
@@ -1439,6 +1595,7 @@ export type ProviderUncheckedUpdateWithoutSubscriptionsInput = {
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutProviderNestedInput
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutProviderNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutProviderNestedInput
+  staff?: Prisma.StaffUncheckedUpdateManyWithoutProviderNestedInput
 }
 
 
@@ -1454,6 +1611,7 @@ export type ProviderCountOutputType = {
   appointments: number
   notifications: number
   subscriptions: number
+  staff: number
 }
 
 export type ProviderCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1464,6 +1622,7 @@ export type ProviderCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensio
   appointments?: boolean | ProviderCountOutputTypeCountAppointmentsArgs
   notifications?: boolean | ProviderCountOutputTypeCountNotificationsArgs
   subscriptions?: boolean | ProviderCountOutputTypeCountSubscriptionsArgs
+  staff?: boolean | ProviderCountOutputTypeCountStaffArgs
 }
 
 /**
@@ -1525,6 +1684,13 @@ export type ProviderCountOutputTypeCountSubscriptionsArgs<ExtArgs extends runtim
   where?: Prisma.SubscriptionWhereInput
 }
 
+/**
+ * ProviderCountOutputType without action
+ */
+export type ProviderCountOutputTypeCountStaffArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.StaffWhereInput
+}
+
 
 export type ProviderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1547,6 +1713,7 @@ export type ProviderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   appointments?: boolean | Prisma.Provider$appointmentsArgs<ExtArgs>
   notifications?: boolean | Prisma.Provider$notificationsArgs<ExtArgs>
   subscriptions?: boolean | Prisma.Provider$subscriptionsArgs<ExtArgs>
+  staff?: boolean | Prisma.Provider$staffArgs<ExtArgs>
   _count?: boolean | Prisma.ProviderCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["provider"]>
 
@@ -1607,6 +1774,7 @@ export type ProviderInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
   appointments?: boolean | Prisma.Provider$appointmentsArgs<ExtArgs>
   notifications?: boolean | Prisma.Provider$notificationsArgs<ExtArgs>
   subscriptions?: boolean | Prisma.Provider$subscriptionsArgs<ExtArgs>
+  staff?: boolean | Prisma.Provider$staffArgs<ExtArgs>
   _count?: boolean | Prisma.ProviderCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ProviderIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1622,6 +1790,7 @@ export type $ProviderPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     appointments: Prisma.$AppointmentPayload<ExtArgs>[]
     notifications: Prisma.$NotificationPayload<ExtArgs>[]
     subscriptions: Prisma.$SubscriptionPayload<ExtArgs>[]
+    staff: Prisma.$StaffPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2038,6 +2207,7 @@ export interface Prisma__ProviderClient<T, Null = never, ExtArgs extends runtime
   appointments<T extends Prisma.Provider$appointmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Provider$appointmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AppointmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   notifications<T extends Prisma.Provider$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Provider$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   subscriptions<T extends Prisma.Provider$subscriptionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Provider$subscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  staff<T extends Prisma.Provider$staffArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Provider$staffArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StaffPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2638,6 +2808,30 @@ export type Provider$subscriptionsArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   distinct?: Prisma.SubscriptionScalarFieldEnum | Prisma.SubscriptionScalarFieldEnum[]
+}
+
+/**
+ * Provider.staff
+ */
+export type Provider$staffArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Staff
+   */
+  select?: Prisma.StaffSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Staff
+   */
+  omit?: Prisma.StaffOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StaffInclude<ExtArgs> | null
+  where?: Prisma.StaffWhereInput
+  orderBy?: Prisma.StaffOrderByWithRelationInput | Prisma.StaffOrderByWithRelationInput[]
+  cursor?: Prisma.StaffWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.StaffScalarFieldEnum | Prisma.StaffScalarFieldEnum[]
 }
 
 /**

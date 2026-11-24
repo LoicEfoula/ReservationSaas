@@ -9,6 +9,8 @@
  * 🟢 You can import this file directly.
  */
 export type * from './models/Provider'
+export type * from './models/Staff'
+export type * from './models/StaffService'
 export type * from './models/Service'
 export type * from './models/OpeningHour'
 export type * from './models/Closure'

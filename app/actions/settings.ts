@@ -4,6 +4,7 @@ import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { requireSession } from "@/lib/session";
+import { ensureDefaultStaff } from "@/lib/staff";
 
 /* ---------- Services ---------- */
 
@@ -19,8 +20,17 @@ export async function createService(formData: FormData) {
   const parsed = serviceSchema.safeParse(Object.fromEntries(formData));
   if (!parsed.success) return;
   const { description, ...rest } = parsed.data;
-  await prisma.service.create({
+  const created = await prisma.service.create({
     data: { ...rest, description: description || null, providerId },
+  });
+  await ensureDefaultStaff(providerId);
+  const activeStaff = await prisma.staff.findMany({
+    where: { providerId, active: true },
+    select: { id: true },
+  });
+  await prisma.staffService.createMany({
+    data: activeStaff.map((s) => ({ staffId: s.id, serviceId: created.id })),
+    skipDuplicates: true,
   });
   revalidatePath("/tableau-de-bord/services");
 }

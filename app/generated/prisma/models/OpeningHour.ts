@@ -41,6 +41,7 @@ export type OpeningHourSumAggregateOutputType = {
 export type OpeningHourMinAggregateOutputType = {
   id: string | null
   providerId: string | null
+  staffId: string | null
   weekday: number | null
   opensAtMin: number | null
   closesAtMin: number | null
@@ -49,6 +50,7 @@ export type OpeningHourMinAggregateOutputType = {
 export type OpeningHourMaxAggregateOutputType = {
   id: string | null
   providerId: string | null
+  staffId: string | null
   weekday: number | null
   opensAtMin: number | null
   closesAtMin: number | null
@@ -57,6 +59,7 @@ export type OpeningHourMaxAggregateOutputType = {
 export type OpeningHourCountAggregateOutputType = {
   id: number
   providerId: number
+  staffId: number
   weekday: number
   opensAtMin: number
   closesAtMin: number
@@ -79,6 +82,7 @@ export type OpeningHourSumAggregateInputType = {
 export type OpeningHourMinAggregateInputType = {
   id?: true
   providerId?: true
+  staffId?: true
   weekday?: true
   opensAtMin?: true
   closesAtMin?: true
@@ -87,6 +91,7 @@ export type OpeningHourMinAggregateInputType = {
 export type OpeningHourMaxAggregateInputType = {
   id?: true
   providerId?: true
+  staffId?: true
   weekday?: true
   opensAtMin?: true
   closesAtMin?: true
@@ -95,6 +100,7 @@ export type OpeningHourMaxAggregateInputType = {
 export type OpeningHourCountAggregateInputType = {
   id?: true
   providerId?: true
+  staffId?: true
   weekday?: true
   opensAtMin?: true
   closesAtMin?: true
@@ -190,6 +196,7 @@ export type OpeningHourGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inte
 export type OpeningHourGroupByOutputType = {
   id: string
   providerId: string
+  staffId: string | null
   weekday: number
   opensAtMin: number
   closesAtMin: number
@@ -221,19 +228,23 @@ export type OpeningHourWhereInput = {
   NOT?: Prisma.OpeningHourWhereInput | Prisma.OpeningHourWhereInput[]
   id?: Prisma.UuidFilter<"OpeningHour"> | string
   providerId?: Prisma.UuidFilter<"OpeningHour"> | string
+  staffId?: Prisma.UuidNullableFilter<"OpeningHour"> | string | null
   weekday?: Prisma.IntFilter<"OpeningHour"> | number
   opensAtMin?: Prisma.IntFilter<"OpeningHour"> | number
   closesAtMin?: Prisma.IntFilter<"OpeningHour"> | number
   provider?: Prisma.XOR<Prisma.ProviderScalarRelationFilter, Prisma.ProviderWhereInput>
+  staff?: Prisma.XOR<Prisma.StaffNullableScalarRelationFilter, Prisma.StaffWhereInput> | null
 }
 
 export type OpeningHourOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   providerId?: Prisma.SortOrder
+  staffId?: Prisma.SortOrderInput | Prisma.SortOrder
   weekday?: Prisma.SortOrder
   opensAtMin?: Prisma.SortOrder
   closesAtMin?: Prisma.SortOrder
   provider?: Prisma.ProviderOrderByWithRelationInput
+  staff?: Prisma.StaffOrderByWithRelationInput
 }
 
 export type OpeningHourWhereUniqueInput = Prisma.AtLeast<{
@@ -242,15 +253,18 @@ export type OpeningHourWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.OpeningHourWhereInput[]
   NOT?: Prisma.OpeningHourWhereInput | Prisma.OpeningHourWhereInput[]
   providerId?: Prisma.UuidFilter<"OpeningHour"> | string
+  staffId?: Prisma.UuidNullableFilter<"OpeningHour"> | string | null
   weekday?: Prisma.IntFilter<"OpeningHour"> | number
   opensAtMin?: Prisma.IntFilter<"OpeningHour"> | number
   closesAtMin?: Prisma.IntFilter<"OpeningHour"> | number
   provider?: Prisma.XOR<Prisma.ProviderScalarRelationFilter, Prisma.ProviderWhereInput>
+  staff?: Prisma.XOR<Prisma.StaffNullableScalarRelationFilter, Prisma.StaffWhereInput> | null
 }, "id">
 
 export type OpeningHourOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   providerId?: Prisma.SortOrder
+  staffId?: Prisma.SortOrderInput | Prisma.SortOrder
   weekday?: Prisma.SortOrder
   opensAtMin?: Prisma.SortOrder
   closesAtMin?: Prisma.SortOrder
@@ -267,6 +281,7 @@ export type OpeningHourScalarWhereWithAggregatesInput = {
   NOT?: Prisma.OpeningHourScalarWhereWithAggregatesInput | Prisma.OpeningHourScalarWhereWithAggregatesInput[]
   id?: Prisma.UuidWithAggregatesFilter<"OpeningHour"> | string
   providerId?: Prisma.UuidWithAggregatesFilter<"OpeningHour"> | string
+  staffId?: Prisma.UuidNullableWithAggregatesFilter<"OpeningHour"> | string | null
   weekday?: Prisma.IntWithAggregatesFilter<"OpeningHour"> | number
   opensAtMin?: Prisma.IntWithAggregatesFilter<"OpeningHour"> | number
   closesAtMin?: Prisma.IntWithAggregatesFilter<"OpeningHour"> | number
@@ -278,11 +293,13 @@ export type OpeningHourCreateInput = {
   opensAtMin: number
   closesAtMin: number
   provider: Prisma.ProviderCreateNestedOneWithoutOpeningHoursInput
+  staff?: Prisma.StaffCreateNestedOneWithoutOpeningHoursInput
 }
 
 export type OpeningHourUncheckedCreateInput = {
   id?: string
   providerId: string
+  staffId?: string | null
   weekday: number
   opensAtMin: number
   closesAtMin: number
@@ -294,11 +311,13 @@ export type OpeningHourUpdateInput = {
   opensAtMin?: Prisma.IntFieldUpdateOperationsInput | number
   closesAtMin?: Prisma.IntFieldUpdateOperationsInput | number
   provider?: Prisma.ProviderUpdateOneRequiredWithoutOpeningHoursNestedInput
+  staff?: Prisma.StaffUpdateOneWithoutOpeningHoursNestedInput
 }
 
 export type OpeningHourUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   providerId?: Prisma.StringFieldUpdateOperationsInput | string
+  staffId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   weekday?: Prisma.IntFieldUpdateOperationsInput | number
   opensAtMin?: Prisma.IntFieldUpdateOperationsInput | number
   closesAtMin?: Prisma.IntFieldUpdateOperationsInput | number
@@ -307,6 +326,7 @@ export type OpeningHourUncheckedUpdateInput = {
 export type OpeningHourCreateManyInput = {
   id?: string
   providerId: string
+  staffId?: string | null
   weekday: number
   opensAtMin: number
   closesAtMin: number
@@ -322,6 +342,7 @@ export type OpeningHourUpdateManyMutationInput = {
 export type OpeningHourUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   providerId?: Prisma.StringFieldUpdateOperationsInput | string
+  staffId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   weekday?: Prisma.IntFieldUpdateOperationsInput | number
   opensAtMin?: Prisma.IntFieldUpdateOperationsInput | number
   closesAtMin?: Prisma.IntFieldUpdateOperationsInput | number
@@ -340,6 +361,7 @@ export type OpeningHourOrderByRelationAggregateInput = {
 export type OpeningHourCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   providerId?: Prisma.SortOrder
+  staffId?: Prisma.SortOrder
   weekday?: Prisma.SortOrder
   opensAtMin?: Prisma.SortOrder
   closesAtMin?: Prisma.SortOrder
@@ -354,6 +376,7 @@ export type OpeningHourAvgOrderByAggregateInput = {
 export type OpeningHourMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   providerId?: Prisma.SortOrder
+  staffId?: Prisma.SortOrder
   weekday?: Prisma.SortOrder
   opensAtMin?: Prisma.SortOrder
   closesAtMin?: Prisma.SortOrder
@@ -362,6 +385,7 @@ export type OpeningHourMaxOrderByAggregateInput = {
 export type OpeningHourMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   providerId?: Prisma.SortOrder
+  staffId?: Prisma.SortOrder
   weekday?: Prisma.SortOrder
   opensAtMin?: Prisma.SortOrder
   closesAtMin?: Prisma.SortOrder
@@ -415,15 +439,59 @@ export type OpeningHourUncheckedUpdateManyWithoutProviderNestedInput = {
   deleteMany?: Prisma.OpeningHourScalarWhereInput | Prisma.OpeningHourScalarWhereInput[]
 }
 
+export type OpeningHourCreateNestedManyWithoutStaffInput = {
+  create?: Prisma.XOR<Prisma.OpeningHourCreateWithoutStaffInput, Prisma.OpeningHourUncheckedCreateWithoutStaffInput> | Prisma.OpeningHourCreateWithoutStaffInput[] | Prisma.OpeningHourUncheckedCreateWithoutStaffInput[]
+  connectOrCreate?: Prisma.OpeningHourCreateOrConnectWithoutStaffInput | Prisma.OpeningHourCreateOrConnectWithoutStaffInput[]
+  createMany?: Prisma.OpeningHourCreateManyStaffInputEnvelope
+  connect?: Prisma.OpeningHourWhereUniqueInput | Prisma.OpeningHourWhereUniqueInput[]
+}
+
+export type OpeningHourUncheckedCreateNestedManyWithoutStaffInput = {
+  create?: Prisma.XOR<Prisma.OpeningHourCreateWithoutStaffInput, Prisma.OpeningHourUncheckedCreateWithoutStaffInput> | Prisma.OpeningHourCreateWithoutStaffInput[] | Prisma.OpeningHourUncheckedCreateWithoutStaffInput[]
+  connectOrCreate?: Prisma.OpeningHourCreateOrConnectWithoutStaffInput | Prisma.OpeningHourCreateOrConnectWithoutStaffInput[]
+  createMany?: Prisma.OpeningHourCreateManyStaffInputEnvelope
+  connect?: Prisma.OpeningHourWhereUniqueInput | Prisma.OpeningHourWhereUniqueInput[]
+}
+
+export type OpeningHourUpdateManyWithoutStaffNestedInput = {
+  create?: Prisma.XOR<Prisma.OpeningHourCreateWithoutStaffInput, Prisma.OpeningHourUncheckedCreateWithoutStaffInput> | Prisma.OpeningHourCreateWithoutStaffInput[] | Prisma.OpeningHourUncheckedCreateWithoutStaffInput[]
+  connectOrCreate?: Prisma.OpeningHourCreateOrConnectWithoutStaffInput | Prisma.OpeningHourCreateOrConnectWithoutStaffInput[]
+  upsert?: Prisma.OpeningHourUpsertWithWhereUniqueWithoutStaffInput | Prisma.OpeningHourUpsertWithWhereUniqueWithoutStaffInput[]
+  createMany?: Prisma.OpeningHourCreateManyStaffInputEnvelope
+  set?: Prisma.OpeningHourWhereUniqueInput | Prisma.OpeningHourWhereUniqueInput[]
+  disconnect?: Prisma.OpeningHourWhereUniqueInput | Prisma.OpeningHourWhereUniqueInput[]
+  delete?: Prisma.OpeningHourWhereUniqueInput | Prisma.OpeningHourWhereUniqueInput[]
+  connect?: Prisma.OpeningHourWhereUniqueInput | Prisma.OpeningHourWhereUniqueInput[]
+  update?: Prisma.OpeningHourUpdateWithWhereUniqueWithoutStaffInput | Prisma.OpeningHourUpdateWithWhereUniqueWithoutStaffInput[]
+  updateMany?: Prisma.OpeningHourUpdateManyWithWhereWithoutStaffInput | Prisma.OpeningHourUpdateManyWithWhereWithoutStaffInput[]
+  deleteMany?: Prisma.OpeningHourScalarWhereInput | Prisma.OpeningHourScalarWhereInput[]
+}
+
+export type OpeningHourUncheckedUpdateManyWithoutStaffNestedInput = {
+  create?: Prisma.XOR<Prisma.OpeningHourCreateWithoutStaffInput, Prisma.OpeningHourUncheckedCreateWithoutStaffInput> | Prisma.OpeningHourCreateWithoutStaffInput[] | Prisma.OpeningHourUncheckedCreateWithoutStaffInput[]
+  connectOrCreate?: Prisma.OpeningHourCreateOrConnectWithoutStaffInput | Prisma.OpeningHourCreateOrConnectWithoutStaffInput[]
+  upsert?: Prisma.OpeningHourUpsertWithWhereUniqueWithoutStaffInput | Prisma.OpeningHourUpsertWithWhereUniqueWithoutStaffInput[]
+  createMany?: Prisma.OpeningHourCreateManyStaffInputEnvelope
+  set?: Prisma.OpeningHourWhereUniqueInput | Prisma.OpeningHourWhereUniqueInput[]
+  disconnect?: Prisma.OpeningHourWhereUniqueInput | Prisma.OpeningHourWhereUniqueInput[]
+  delete?: Prisma.OpeningHourWhereUniqueInput | Prisma.OpeningHourWhereUniqueInput[]
+  connect?: Prisma.OpeningHourWhereUniqueInput | Prisma.OpeningHourWhereUniqueInput[]
+  update?: Prisma.OpeningHourUpdateWithWhereUniqueWithoutStaffInput | Prisma.OpeningHourUpdateWithWhereUniqueWithoutStaffInput[]
+  updateMany?: Prisma.OpeningHourUpdateManyWithWhereWithoutStaffInput | Prisma.OpeningHourUpdateManyWithWhereWithoutStaffInput[]
+  deleteMany?: Prisma.OpeningHourScalarWhereInput | Prisma.OpeningHourScalarWhereInput[]
+}
+
 export type OpeningHourCreateWithoutProviderInput = {
   id?: string
   weekday: number
   opensAtMin: number
   closesAtMin: number
+  staff?: Prisma.StaffCreateNestedOneWithoutOpeningHoursInput
 }
 
 export type OpeningHourUncheckedCreateWithoutProviderInput = {
   id?: string
+  staffId?: string | null
   weekday: number
   opensAtMin: number
   closesAtMin: number
@@ -461,13 +529,57 @@ export type OpeningHourScalarWhereInput = {
   NOT?: Prisma.OpeningHourScalarWhereInput | Prisma.OpeningHourScalarWhereInput[]
   id?: Prisma.UuidFilter<"OpeningHour"> | string
   providerId?: Prisma.UuidFilter<"OpeningHour"> | string
+  staffId?: Prisma.UuidNullableFilter<"OpeningHour"> | string | null
   weekday?: Prisma.IntFilter<"OpeningHour"> | number
   opensAtMin?: Prisma.IntFilter<"OpeningHour"> | number
   closesAtMin?: Prisma.IntFilter<"OpeningHour"> | number
 }
 
+export type OpeningHourCreateWithoutStaffInput = {
+  id?: string
+  weekday: number
+  opensAtMin: number
+  closesAtMin: number
+  provider: Prisma.ProviderCreateNestedOneWithoutOpeningHoursInput
+}
+
+export type OpeningHourUncheckedCreateWithoutStaffInput = {
+  id?: string
+  providerId: string
+  weekday: number
+  opensAtMin: number
+  closesAtMin: number
+}
+
+export type OpeningHourCreateOrConnectWithoutStaffInput = {
+  where: Prisma.OpeningHourWhereUniqueInput
+  create: Prisma.XOR<Prisma.OpeningHourCreateWithoutStaffInput, Prisma.OpeningHourUncheckedCreateWithoutStaffInput>
+}
+
+export type OpeningHourCreateManyStaffInputEnvelope = {
+  data: Prisma.OpeningHourCreateManyStaffInput | Prisma.OpeningHourCreateManyStaffInput[]
+  skipDuplicates?: boolean
+}
+
+export type OpeningHourUpsertWithWhereUniqueWithoutStaffInput = {
+  where: Prisma.OpeningHourWhereUniqueInput
+  update: Prisma.XOR<Prisma.OpeningHourUpdateWithoutStaffInput, Prisma.OpeningHourUncheckedUpdateWithoutStaffInput>
+  create: Prisma.XOR<Prisma.OpeningHourCreateWithoutStaffInput, Prisma.OpeningHourUncheckedCreateWithoutStaffInput>
+}
+
+export type OpeningHourUpdateWithWhereUniqueWithoutStaffInput = {
+  where: Prisma.OpeningHourWhereUniqueInput
+  data: Prisma.XOR<Prisma.OpeningHourUpdateWithoutStaffInput, Prisma.OpeningHourUncheckedUpdateWithoutStaffInput>
+}
+
+export type OpeningHourUpdateManyWithWhereWithoutStaffInput = {
+  where: Prisma.OpeningHourScalarWhereInput
+  data: Prisma.XOR<Prisma.OpeningHourUpdateManyMutationInput, Prisma.OpeningHourUncheckedUpdateManyWithoutStaffInput>
+}
+
 export type OpeningHourCreateManyProviderInput = {
   id?: string
+  staffId?: string | null
   weekday: number
   opensAtMin: number
   closesAtMin: number
@@ -478,10 +590,12 @@ export type OpeningHourUpdateWithoutProviderInput = {
   weekday?: Prisma.IntFieldUpdateOperationsInput | number
   opensAtMin?: Prisma.IntFieldUpdateOperationsInput | number
   closesAtMin?: Prisma.IntFieldUpdateOperationsInput | number
+  staff?: Prisma.StaffUpdateOneWithoutOpeningHoursNestedInput
 }
 
 export type OpeningHourUncheckedUpdateWithoutProviderInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  staffId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   weekday?: Prisma.IntFieldUpdateOperationsInput | number
   opensAtMin?: Prisma.IntFieldUpdateOperationsInput | number
   closesAtMin?: Prisma.IntFieldUpdateOperationsInput | number
@@ -489,6 +603,39 @@ export type OpeningHourUncheckedUpdateWithoutProviderInput = {
 
 export type OpeningHourUncheckedUpdateManyWithoutProviderInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  staffId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  weekday?: Prisma.IntFieldUpdateOperationsInput | number
+  opensAtMin?: Prisma.IntFieldUpdateOperationsInput | number
+  closesAtMin?: Prisma.IntFieldUpdateOperationsInput | number
+}
+
+export type OpeningHourCreateManyStaffInput = {
+  id?: string
+  providerId: string
+  weekday: number
+  opensAtMin: number
+  closesAtMin: number
+}
+
+export type OpeningHourUpdateWithoutStaffInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  weekday?: Prisma.IntFieldUpdateOperationsInput | number
+  opensAtMin?: Prisma.IntFieldUpdateOperationsInput | number
+  closesAtMin?: Prisma.IntFieldUpdateOperationsInput | number
+  provider?: Prisma.ProviderUpdateOneRequiredWithoutOpeningHoursNestedInput
+}
+
+export type OpeningHourUncheckedUpdateWithoutStaffInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerId?: Prisma.StringFieldUpdateOperationsInput | string
+  weekday?: Prisma.IntFieldUpdateOperationsInput | number
+  opensAtMin?: Prisma.IntFieldUpdateOperationsInput | number
+  closesAtMin?: Prisma.IntFieldUpdateOperationsInput | number
+}
+
+export type OpeningHourUncheckedUpdateManyWithoutStaffInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  providerId?: Prisma.StringFieldUpdateOperationsInput | string
   weekday?: Prisma.IntFieldUpdateOperationsInput | number
   opensAtMin?: Prisma.IntFieldUpdateOperationsInput | number
   closesAtMin?: Prisma.IntFieldUpdateOperationsInput | number
@@ -499,57 +646,69 @@ export type OpeningHourUncheckedUpdateManyWithoutProviderInput = {
 export type OpeningHourSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   providerId?: boolean
+  staffId?: boolean
   weekday?: boolean
   opensAtMin?: boolean
   closesAtMin?: boolean
   provider?: boolean | Prisma.ProviderDefaultArgs<ExtArgs>
+  staff?: boolean | Prisma.OpeningHour$staffArgs<ExtArgs>
 }, ExtArgs["result"]["openingHour"]>
 
 export type OpeningHourSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   providerId?: boolean
+  staffId?: boolean
   weekday?: boolean
   opensAtMin?: boolean
   closesAtMin?: boolean
   provider?: boolean | Prisma.ProviderDefaultArgs<ExtArgs>
+  staff?: boolean | Prisma.OpeningHour$staffArgs<ExtArgs>
 }, ExtArgs["result"]["openingHour"]>
 
 export type OpeningHourSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   providerId?: boolean
+  staffId?: boolean
   weekday?: boolean
   opensAtMin?: boolean
   closesAtMin?: boolean
   provider?: boolean | Prisma.ProviderDefaultArgs<ExtArgs>
+  staff?: boolean | Prisma.OpeningHour$staffArgs<ExtArgs>
 }, ExtArgs["result"]["openingHour"]>
 
 export type OpeningHourSelectScalar = {
   id?: boolean
   providerId?: boolean
+  staffId?: boolean
   weekday?: boolean
   opensAtMin?: boolean
   closesAtMin?: boolean
 }
 
-export type OpeningHourOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "providerId" | "weekday" | "opensAtMin" | "closesAtMin", ExtArgs["result"]["openingHour"]>
+export type OpeningHourOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "providerId" | "staffId" | "weekday" | "opensAtMin" | "closesAtMin", ExtArgs["result"]["openingHour"]>
 export type OpeningHourInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   provider?: boolean | Prisma.ProviderDefaultArgs<ExtArgs>
+  staff?: boolean | Prisma.OpeningHour$staffArgs<ExtArgs>
 }
 export type OpeningHourIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   provider?: boolean | Prisma.ProviderDefaultArgs<ExtArgs>
+  staff?: boolean | Prisma.OpeningHour$staffArgs<ExtArgs>
 }
 export type OpeningHourIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   provider?: boolean | Prisma.ProviderDefaultArgs<ExtArgs>
+  staff?: boolean | Prisma.OpeningHour$staffArgs<ExtArgs>
 }
 
 export type $OpeningHourPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "OpeningHour"
   objects: {
     provider: Prisma.$ProviderPayload<ExtArgs>
+    staff: Prisma.$StaffPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     providerId: string
+    staffId: string | null
     weekday: number
     opensAtMin: number
     closesAtMin: number
@@ -948,6 +1107,7 @@ readonly fields: OpeningHourFieldRefs;
 export interface Prisma__OpeningHourClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   provider<T extends Prisma.ProviderDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProviderDefaultArgs<ExtArgs>>): Prisma.Prisma__ProviderClient<runtime.Types.Result.GetResult<Prisma.$ProviderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  staff<T extends Prisma.OpeningHour$staffArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OpeningHour$staffArgs<ExtArgs>>): Prisma.Prisma__StaffClient<runtime.Types.Result.GetResult<Prisma.$StaffPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -979,6 +1139,7 @@ export interface Prisma__OpeningHourClient<T, Null = never, ExtArgs extends runt
 export interface OpeningHourFieldRefs {
   readonly id: Prisma.FieldRef<"OpeningHour", 'String'>
   readonly providerId: Prisma.FieldRef<"OpeningHour", 'String'>
+  readonly staffId: Prisma.FieldRef<"OpeningHour", 'String'>
   readonly weekday: Prisma.FieldRef<"OpeningHour", 'Int'>
   readonly opensAtMin: Prisma.FieldRef<"OpeningHour", 'Int'>
   readonly closesAtMin: Prisma.FieldRef<"OpeningHour", 'Int'>
@@ -1380,6 +1541,25 @@ export type OpeningHourDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.I
    * Limit how many OpeningHours to delete.
    */
   limit?: number
+}
+
+/**
+ * OpeningHour.staff
+ */
+export type OpeningHour$staffArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Staff
+   */
+  select?: Prisma.StaffSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Staff
+   */
+  omit?: Prisma.StaffOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.StaffInclude<ExtArgs> | null
+  where?: Prisma.StaffWhereInput
 }
 
 /**

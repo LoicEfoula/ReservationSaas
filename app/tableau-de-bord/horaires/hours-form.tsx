@@ -1,13 +1,20 @@
 "use client";
 
 import { useActionState } from "react";
-import { saveHours } from "@/app/actions/settings";
+import { saveStaffHours } from "@/app/actions/staff";
 
-export function HoursForm({ children }: { children: React.ReactNode }) {
-  const [state, formAction, pending] = useActionState(saveHours, null);
+export function HoursForm({
+  staffId,
+  children,
+}: {
+  staffId: string;
+  children: React.ReactNode;
+}) {
+  const [state, formAction, pending] = useActionState(saveStaffHours, null);
 
   return (
     <form action={formAction} className="mt-4 flex flex-col gap-3">
+      <input type="hidden" name="staffId" value={staffId} />
       {children}
       <button
         disabled={pending}

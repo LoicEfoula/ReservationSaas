@@ -1,5 +1,7 @@
+import Link from "next/link";
 import { requireSession } from "@/lib/session";
 import { prisma } from "@/lib/prisma";
+import { ensureDefaultStaff } from "@/lib/staff";
 import { HoursForm } from "./hours-form";
 
 const DAYS = [
@@ -15,21 +17,62 @@ const DAYS = [
 const fmt = (min: number) =>
   `${String(Math.floor(min / 60)).padStart(2, "0")}:${String(min % 60).padStart(2, "0")}`;
 
-export default async function HorairesPage() {
+export default async function HorairesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ coiffeur?: string }>;
+}) {
   const { providerId } = await requireSession();
+  const { coiffeur } = await searchParams;
+  await ensureDefaultStaff(providerId);
+
+  const staffList = await prisma.staff.findMany({
+    where: { providerId, active: true },
+    orderBy: { createdAt: "asc" },
+  });
+  const current = staffList.find((s) => s.id === coiffeur) ?? staffList[0];
+  if (!current) {
+    return (
+      <main className="mx-auto max-w-2xl p-6">
+        <p className="text-sm text-gray-600">Aucun coiffeur actif.</p>
+      </main>
+    );
+  }
+
   const hours = await prisma.openingHour.findMany({
-    where: { providerId },
+    where: { providerId, staffId: current.id },
     orderBy: [{ weekday: "asc" }, { opensAtMin: "asc" }],
   });
 
   return (
     <main className="mx-auto max-w-2xl p-6">
-      <h1 className="text-2xl font-semibold">Horaires d'ouverture</h1>
+      <h1 className="text-2xl font-semibold">Horaires d&apos;ouverture</h1>
       <p className="mt-1 text-sm text-gray-600">
-        Coche les jours d'ouverture. La pause est facultative.
+        Coche les jours de travail. La pause est facultative.
       </p>
 
-      <HoursForm>
+      {staffList.length > 1 && (
+        <div className="mt-4 flex flex-wrap gap-2 text-sm">
+          {staffList.map((s) => (
+            <Link
+              key={s.id}
+              href={`/tableau-de-bord/horaires?coiffeur=${s.id}`}
+              className={`rounded border px-3 py-1 ${
+                s.id === current.id ? "bg-black text-white" : ""
+              }`}
+            >
+              {s.name}
+            </Link>
+          ))}
+        </div>
+      )}
+      {staffList.length > 1 && (
+        <p className="mt-2 text-sm text-gray-600">
+          Horaires de : <strong>{current.name}</strong>
+        </p>
+      )}
+
+      <HoursForm key={current.id} staffId={current.id}>
         {DAYS.map(({ n, label }) => {
           const rows = hours.filter((h) => h.weekday === n);
           const isOpen = rows.length > 0;

@@ -47,6 +47,16 @@ export { Prisma }
  */
 export type Provider = Prisma.ProviderModel
 /**
+ * Model Staff
+ * 
+ */
+export type Staff = Prisma.StaffModel
+/**
+ * Model StaffService
+ * 
+ */
+export type StaffService = Prisma.StaffServiceModel
+/**
  * Model Service
  * 
  */

@@ -90,7 +90,7 @@ export async function bookAppointment(input: unknown): Promise<BookingResult> {
     };
   }
 
-  let appointmentId: string;
+   let appointmentId = "";
   const plan = await effectivePlan(provider.id, provider.plan);
   const quota = await getQuota(provider.id, plan, slot.startsAt);
   if (quota.full) {
@@ -100,28 +100,39 @@ export async function bookAppointment(input: unknown): Promise<BookingResult> {
     };
   }
   const cancelToken = randomUUID();
-  let optedIn: boolean;
+  let optedIn = false;
   try {
     const customer = await prisma.customer.upsert({
       where: { providerId_phone: { providerId: provider.id, phone } },
       update: { name, whatsappOptIn },
       create: { providerId: provider.id, phone, name, whatsappOptIn },
     });
-    const appointment = await prisma.appointment.create({
-      data: {
-        providerId: provider.id,
-        serviceId: service.id,
-        customerId: customer.id,
-        startsAt: slot.startsAt,
-        endsAt: slot.endsAt,
-        cancelToken,
-      },
-      select: { id: true },
-    });
-    appointmentId = appointment.id;
     optedIn = customer.whatsappOptIn;
+    // Affectation automatique : on essaie les coiffeurs libres dans l'ordre.
+    for (const staffId of slot.staffIds) {
+      try {
+        const appointment = await prisma.appointment.create({
+          data: {
+            providerId: provider.id,
+            staffId,
+            serviceId: service.id,
+            customerId: customer.id,
+            startsAt: slot.startsAt,
+            endsAt: slot.endsAt,
+            cancelToken,
+          },
+          select: { id: true },
+        });
+        appointmentId = appointment.id;
+        break;
+      } catch (e) {
+        console.error("Coiffeur indisponible, essai du suivant :", staffId, e);
+      }
+    }
   } catch (e) {
     console.error("Réservation échouée :", e);
+  }
+  if (!appointmentId) {
     return {
       ok: false,
       error: "Ce créneau vient d'être pris. Choisis-en un autre.",
