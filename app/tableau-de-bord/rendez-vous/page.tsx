@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { requireSession } from "@/lib/session";
 import { prisma } from "@/lib/prisma";
 import {
@@ -31,14 +32,17 @@ type Item = {
   status: string;
   service: { name: string; priceFcfa: number };
   customer: { name: string; phone: string };
+  staff: { name: string } | null;
 };
 
 function Row({
   a,
   actions,
+  showStaff,
 }: {
   a: Item;
   actions?: "upcoming" | "close";
+  showStaff: boolean;
 }) {
   return (
     <li className="rounded border p-4">
@@ -46,6 +50,9 @@ function Row({
       <p className="text-sm">
         {a.service.name} · {a.service.priceFcfa.toLocaleString("fr-FR")} FCFA
       </p>
+      {showStaff && a.staff && (
+        <p className="text-sm">Coiffeur : {a.staff.name}</p>
+      )}
       <p className="text-sm text-gray-600">
         {a.customer.name} ·{" "}
         <a href={`tel:${a.customer.phone}`} className="underline">
@@ -81,8 +88,13 @@ function Row({
   );
 }
 
-export default async function RendezVousPage() {
+export default async function RendezVousPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ coiffeur?: string }>;
+}) {
   const { providerId } = await requireSession();
+  const { coiffeur } = await searchParams;
   const now = new Date();
   const since = new Date(now.getTime() - 60 * 24 * 60 * 60 * 1000);
   const provider = await prisma.provider.findUnique({
@@ -92,10 +104,22 @@ export default async function RendezVousPage() {
 
   const used = await monthUsage(providerId, now);
   const isFree = (await effectivePlan(providerId, provider?.plan ?? "FREE")) !== "PRO";
-  
+
+  const staffList = await prisma.staff.findMany({
+    where: { providerId },
+    orderBy: { createdAt: "asc" },
+    select: { id: true, name: true },
+  });
+  const showStaff = staffList.length > 1;
+  const selected = showStaff ? staffList.find((s) => s.id === coiffeur) : undefined;
+
   const all = await prisma.appointment.findMany({
-    where: { providerId, startsAt: { gte: since } },
-    include: { service: true, customer: true },
+    where: {
+      providerId,
+      startsAt: { gte: since },
+      ...(selected ? { staffId: selected.id } : {}),
+    },
+    include: { service: true, customer: true, staff: true },
     orderBy: { startsAt: "asc" },
   });
 
@@ -119,6 +143,28 @@ export default async function RendezVousPage() {
           : `Plan PRO : ${used} rendez-vous ce mois-ci, sans limite`}
       </p>
 
+      {showStaff && (
+        <div className="mt-4 flex flex-wrap gap-2 text-sm">
+          <Link
+            href="/tableau-de-bord/rendez-vous"
+            className={`rounded border px-3 py-1 ${!selected ? "bg-black text-white" : ""}`}
+          >
+            Tous
+          </Link>
+          {staffList.map((s) => (
+            <Link
+              key={s.id}
+              href={`/tableau-de-bord/rendez-vous?coiffeur=${s.id}`}
+              className={`rounded border px-3 py-1 ${
+                selected?.id === s.id ? "bg-black text-white" : ""
+              }`}
+            >
+              {s.name}
+            </Link>
+          ))}
+        </div>
+      )}
+
       {toClose.length > 0 && (
         <section className="mt-6">
           <h2 className="font-medium">À clôturer ({toClose.length})</h2>
@@ -127,7 +173,7 @@ export default async function RendezVousPage() {
           </p>
           <ul className="mt-2 flex flex-col gap-3">
             {toClose.map((a) => (
-              <Row key={a.id} a={a} actions="close" />
+              <Row key={a.id} a={a} actions="close" showStaff={showStaff} />
             ))}
           </ul>
         </section>
@@ -140,7 +186,7 @@ export default async function RendezVousPage() {
         ) : (
           <ul className="mt-2 flex flex-col gap-3">
             {upcoming.map((a) => (
-              <Row key={a.id} a={a} actions="upcoming" />
+              <Row key={a.id} a={a} actions="upcoming" showStaff={showStaff} />
             ))}
           </ul>
         )}
@@ -151,7 +197,7 @@ export default async function RendezVousPage() {
           <h2 className="font-medium">Historique récent</h2>
           <ul className="mt-2 flex flex-col gap-3">
             {history.map((a) => (
-              <Row key={a.id} a={a} />
+              <Row key={a.id} a={a} showStaff={showStaff} />
             ))}
           </ul>
         </section>
